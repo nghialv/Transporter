@@ -27,6 +27,10 @@ public class Transaction {
     public func push(tasks: [TPTask]) -> Self {
         return self
     }
+   
+    public func push(taskGroup: TPTaskGroup) -> Self {
+        return self
+    }
     
     public func progress(handler: ProgressHandler) -> Self {
         progressHandler = handler

@@ -8,6 +8,6 @@
 
 import Foundation
 
-class TPTaskGroup : TPTask {
+public class TPTaskGroup : TPTask {
     
 }

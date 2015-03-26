@@ -9,5 +9,8 @@
 import Foundation
 
 public class DownloadTask : TPTask {
-    
+    override init() {
+        super.init()
+        method = .GET
+    }
 }

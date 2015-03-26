@@ -20,8 +20,16 @@ class ViewController: UIViewController {
             .completed {
                 NSLog("Completed")
             }
-        
-        let task2 = task1
+       
+        let task2 = UploadTask(data: NSData())
+            .progress {
+                println("uploading")
+            }
+            .completed {
+                NSLog("Completed")
+        }
+        let task3 = task1
+        let task4 = task2
         
         Transporter.push(task1)
             .progress {
@@ -30,7 +38,14 @@ class ViewController: UIViewController {
             .completed {
                 
             }
-            .push([task1, task2])
+            .push([task2, task3])
+            .completed {
+                
+            }
+            .push(task2 --> task3 --> task4)
+            .completed {
+                
+            }
             .resume()
     }
 }

@@ -11,8 +11,12 @@ import Foundation
 public class UploadTask : TPTask {
 
     init(data: NSData) {
+        super.init()
+        method = .POST
     }
     
     init(file: String) {
+        super.init()
+        method = .POST
     }
 }
