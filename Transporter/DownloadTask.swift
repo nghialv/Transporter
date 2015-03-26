@@ -8,17 +8,22 @@
 
 import Foundation
 
-public class DownloadTask : TPTask {
-    public var method: TPMethod
-    var task: NSURLSessionDownloadTask
+public class DownloadTask : TPTransferTask {
+    var task: NSURLSessionDownloadTask?
     
     override init() {
-        method = .GET
-        task = NSURLSessionDownloadTask()
         super.init()
+        method = .GET
+    }
+   
+    override func setupTask() {
+        let url = NSURL(string: "https://developer.apple.com/library/ios/documentation/iphone/conceptual/iphoneosprogrammingguide/iphoneappprogrammingguide.pdf")!
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = method.rawValue
+        task = session?.downloadTaskWithRequest(request)
     }
     
     public override func resume() {
-        
+        task?.resume()
     }
 }

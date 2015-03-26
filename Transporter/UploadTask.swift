@@ -8,14 +8,12 @@
 
 import Foundation
 
-public class UploadTask : TPTask {
-    public var method: TPMethod
-    var task: NSURLSessionUploadTask
+public class UploadTask : TPTransferTask {
+    var task: NSURLSessionUploadTask?
     
     override init() {
-        method = .POST
-        task = NSURLSessionUploadTask()
         super.init()
+        method = .POST
     }
     
     convenience init(data: NSData) {
@@ -24,6 +22,10 @@ public class UploadTask : TPTask {
     
     convenience init(file: String) {
         self.init()
+    }
+   
+    override func setupTask() {
+        
     }
     
     public override func resume() {

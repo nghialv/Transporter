@@ -21,6 +21,7 @@
 		8CCD5A911AC3F885007EAC78 /* TPTaskGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCD5A901AC3F885007EAC78 /* TPTaskGroup.swift */; };
 		8CCD5A931AC3F8BB007EAC78 /* TPCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCD5A921AC3F8BB007EAC78 /* TPCommon.swift */; };
 		8CCD5A951AC3FC6C007EAC78 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCD5A941AC3FC6C007EAC78 /* Transaction.swift */; };
+		8CCD5A971AC46086007EAC78 /* TPTransferTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCD5A961AC46086007EAC78 /* TPTransferTask.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		8CCD5A901AC3F885007EAC78 /* TPTaskGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPTaskGroup.swift; sourceTree = "<group>"; };
 		8CCD5A921AC3F8BB007EAC78 /* TPCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCommon.swift; sourceTree = "<group>"; };
 		8CCD5A941AC3FC6C007EAC78 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		8CCD5A961AC46086007EAC78 /* TPTransferTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPTransferTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 			children = (
 				8CCD5A921AC3F8BB007EAC78 /* TPCommon.swift */,
 				8CCD5A8A1AC3F2CE007EAC78 /* TPTask.swift */,
+				8CCD5A961AC46086007EAC78 /* TPTransferTask.swift */,
 				8CCD5A861AC3F237007EAC78 /* UploadTask.swift */,
 				8CCD5A881AC3F243007EAC78 /* DownloadTask.swift */,
 				8CCD5A901AC3F885007EAC78 /* TPTaskGroup.swift */,
@@ -250,6 +253,7 @@
 				8CCD5A931AC3F8BB007EAC78 /* TPCommon.swift in Sources */,
 				8CCD5A8B1AC3F2CE007EAC78 /* TPTask.swift in Sources */,
 				8CCD5A951AC3FC6C007EAC78 /* Transaction.swift in Sources */,
+				8CCD5A971AC46086007EAC78 /* TPTransferTask.swift in Sources */,
 				8CCD5A8F1AC3F3A0007EAC78 /* Transporter.swift in Sources */,
 				8CCD5A871AC3F237007EAC78 /* UploadTask.swift in Sources */,
 				8CCD5A8D1AC3F2DA007EAC78 /* TPExtensions.swift in Sources */,

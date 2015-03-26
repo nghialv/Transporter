@@ -12,12 +12,12 @@ public class Transaction {
     private var firstTaskGroup: TPTaskGroup
     var currentTaskGroup: TPTaskGroup?
     
-    public init(task: TPTask) {
+    public init(task: TPTransferTask) {
         firstTaskGroup = TPTaskGroup(task: task)
         currentTaskGroup = firstTaskGroup
     }
    
-    public init(tasks: [TPTask]) {
+    public init(tasks: [TPTransferTask]) {
         firstTaskGroup = TPTaskGroup(tasks: tasks)
         currentTaskGroup = firstTaskGroup
     }
@@ -27,14 +27,14 @@ public class Transaction {
         currentTaskGroup = firstTaskGroup
     }
     
-    public func push(task: TPTask) -> Self {
+    public func push(task: TPTransferTask) -> Self {
         let group = TPTaskGroup(task: task)
         currentTaskGroup?.next = group
         currentTaskGroup = group
         return self
     }
     
-    public func push(tasks: [TPTask]) -> Self {
+    public func push(tasks: [TPTransferTask]) -> Self {
         let group = TPTaskGroup(tasks: tasks)
         currentTaskGroup?.next = group
         currentTaskGroup = group

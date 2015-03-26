@@ -11,12 +11,12 @@ import Foundation
 public struct Transporter {
     private static var backgroundEventHandlers: [() -> ()] = []
     
-    public static func push(task: TPTask) -> Transaction {
+    public static func push(task: TPTransferTask) -> Transaction {
         let transaction = Transaction(task: task)
         return transaction
     }
     
-    public static func push(tasks: [TPTask]) -> Transaction {
+    public static func push(tasks: [TPTransferTask]) -> Transaction {
         let transaction = Transaction(tasks: tasks)
         return transaction
     }

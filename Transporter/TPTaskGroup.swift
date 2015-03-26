@@ -14,49 +14,59 @@ enum RunMode {
 }
 
 public class TPTaskGroup : TPTask {
-    var mode: RunMode = .Concurent
-    var tasks: [TPTask] = []
+    var tasks: [TPTransferTask] = []
+    var sessions: [NSURLSession] = []
+    var mode: RunMode!
+    var configured: Bool = false
     var next: TPTaskGroup?
-    let identifier = NSUUID().UUIDString
-    let section: NSURLSession!
-    let configuration: NSURLSessionConfiguration!
-   
-    override init() {
+    
+    public init(task: TPTransferTask) {
         super.init()
-        // TODO: check os version
-        self.configuration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(identifier)
-        section = NSURLSession(configuration: configuration, delegate: self, delegateQueue: nil)
-    }
-
-    convenience public init(task: TPTask) {
-        self.init()
         mode = .Serial
         tasks = [task]
     }
    
-    convenience public init(tasks: [TPTask]) {
-        self.init()
+    public init(tasks: [TPTransferTask]) {
+        super.init()
         mode = .Concurent
         self.tasks = tasks
     }
     
-    convenience public init(left: TPTask, right: TPTask) {
-        self.init()
+    public init(left: TPTransferTask, right: TPTransferTask) {
+        super.init()
         mode = .Serial
         tasks = [left, right]
     }
     
-    public func append(task: TPTask) -> Self {
+    public func append(task: TPTransferTask) -> Self {
         tasks.append(task)
         return self
     }
     
     override public func resume() {
-        for task in tasks {
-            task.completionHandler?()
+        if !configured {
+            switch mode! {
+            case .Concurent:
+                let session = createSession()
+                sessions = [session]
+                for task in tasks {
+                    task.session = session
+                }
+            case .Serial:
+                for task in tasks {
+                    let session = createSession()
+                    sessions.append(session)
+                    task.session = session
+                }
+            }
         }
-        completionHandler?()
-        next?.resume()
+        tasks.first?.resume()
+    }
+    
+    private func createSession() -> NSURLSession {
+        let identifier = NSUUID().UUIDString
+        let configuration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(identifier)
+        return NSURLSession(configuration: configuration, delegate: self, delegateQueue: nil)
     }
 }
 
@@ -73,8 +83,10 @@ extension TPTaskGroup : NSURLSessionTaskDelegate {
     }
     
     // Requests credentials from the delegate in response to an authentication request from the remote server
+    /*
     public func URLSession(session: NSURLSession, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential!) -> Void) {
     }
+    */
     
     public func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
         if let uploadTask = task as? NSURLSessionUploadTask {
@@ -90,9 +102,12 @@ extension TPTaskGroup : NSURLSessionDownloadDelegate {
     
     // Periodically informs the delegate about the download’s progress
     public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        let ratio = totalBytesExpectedToWrite == NSURLSessionTransferSizeUnknown ? -1.0 : Double(totalBytesWritten) / Double(totalBytesExpectedToWrite)
+        NSLog("downloaded: \(ratio)")
     }
     
     // Download task completes successfully
     public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
+        NSLog("Download finished")
     }
 }

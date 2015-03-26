@@ -19,10 +19,10 @@ public typealias CompletionHandler = () -> ()
 
 infix operator --> { associativity left precedence 160 }
 
-func --> (left: TPTask, right: TPTask) -> TPTaskGroup {
+func --> (left: TPTransferTask, right: TPTransferTask) -> TPTaskGroup {
     return TPTaskGroup(left: left, right: right)
 }
 
-func --> (left: TPTaskGroup, right: TPTask) -> TPTaskGroup {
+func --> (left: TPTaskGroup, right: TPTransferTask) -> TPTaskGroup {
     return left.append(right)
 }

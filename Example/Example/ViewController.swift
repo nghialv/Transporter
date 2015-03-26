@@ -37,12 +37,10 @@ class ViewController: UIViewController {
             .completed {
                 NSLog("transaction1: completed")
             }
-            
             .push([task2, task3])
             .completed {
                 NSLog("transaction2: completed")
             }
-            
             .push(tasks[2] --> tasks[3] --> tasks[4])
             .completed {
                 NSLog("transaction3: completed")
