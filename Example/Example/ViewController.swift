@@ -12,14 +12,25 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let task1 = UploadTask(data: NSData())
+            .progress {
+                println("uploading")
+            }
+            .completed {
+                NSLog("Completed")
+            }
+        
+        let task2 = task1
+        
+        Transporter.push(task1)
+            .progress {
+                
+            }
+            .completed {
+                
+            }
+            .push([task1, task2])
+            .resume()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
-

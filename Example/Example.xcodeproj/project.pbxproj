@@ -13,6 +13,14 @@
 		8CBBD9F81AC3F11500A59F1D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CBBD9F71AC3F11500A59F1D /* Images.xcassets */; };
 		8CBBD9FB1AC3F11500A59F1D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CBBD9F91AC3F11500A59F1D /* LaunchScreen.xib */; };
 		8CBBDA071AC3F11500A59F1D /* ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBDA061AC3F11500A59F1D /* ExampleTests.swift */; };
+		8CCD5A871AC3F237007EAC78 /* UploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCD5A861AC3F237007EAC78 /* UploadTask.swift */; };
+		8CCD5A891AC3F243007EAC78 /* DownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCD5A881AC3F243007EAC78 /* DownloadTask.swift */; };
+		8CCD5A8B1AC3F2CE007EAC78 /* TPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCD5A8A1AC3F2CE007EAC78 /* TPTask.swift */; };
+		8CCD5A8D1AC3F2DA007EAC78 /* TPExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCD5A8C1AC3F2DA007EAC78 /* TPExtensions.swift */; };
+		8CCD5A8F1AC3F3A0007EAC78 /* Transporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCD5A8E1AC3F3A0007EAC78 /* Transporter.swift */; };
+		8CCD5A911AC3F885007EAC78 /* TPTaskGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCD5A901AC3F885007EAC78 /* TPTaskGroup.swift */; };
+		8CCD5A931AC3F8BB007EAC78 /* TPCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCD5A921AC3F8BB007EAC78 /* TPCommon.swift */; };
+		8CCD5A951AC3FC6C007EAC78 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CCD5A941AC3FC6C007EAC78 /* Transaction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +44,14 @@
 		8CBBDA001AC3F11500A59F1D /* ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CBBDA051AC3F11500A59F1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CBBDA061AC3F11500A59F1D /* ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTests.swift; sourceTree = "<group>"; };
+		8CCD5A861AC3F237007EAC78 /* UploadTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadTask.swift; sourceTree = "<group>"; };
+		8CCD5A881AC3F243007EAC78 /* DownloadTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadTask.swift; sourceTree = "<group>"; };
+		8CCD5A8A1AC3F2CE007EAC78 /* TPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPTask.swift; sourceTree = "<group>"; };
+		8CCD5A8C1AC3F2DA007EAC78 /* TPExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPExtensions.swift; sourceTree = "<group>"; };
+		8CCD5A8E1AC3F3A0007EAC78 /* Transporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transporter.swift; sourceTree = "<group>"; };
+		8CCD5A901AC3F885007EAC78 /* TPTaskGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPTaskGroup.swift; sourceTree = "<group>"; };
+		8CCD5A921AC3F8BB007EAC78 /* TPCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPCommon.swift; sourceTree = "<group>"; };
+		8CCD5A941AC3FC6C007EAC78 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +132,14 @@
 		8CBBDA101AC3F12500A59F1D /* Transporter */ = {
 			isa = PBXGroup;
 			children = (
+				8CCD5A921AC3F8BB007EAC78 /* TPCommon.swift */,
+				8CCD5A8A1AC3F2CE007EAC78 /* TPTask.swift */,
+				8CCD5A861AC3F237007EAC78 /* UploadTask.swift */,
+				8CCD5A881AC3F243007EAC78 /* DownloadTask.swift */,
+				8CCD5A901AC3F885007EAC78 /* TPTaskGroup.swift */,
+				8CCD5A941AC3FC6C007EAC78 /* Transaction.swift */,
+				8CCD5A8E1AC3F3A0007EAC78 /* Transporter.swift */,
+				8CCD5A8C1AC3F2DA007EAC78 /* TPExtensions.swift */,
 			);
 			name = Transporter;
 			path = ../Transporter;
@@ -221,6 +245,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CCD5A911AC3F885007EAC78 /* TPTaskGroup.swift in Sources */,
+				8CCD5A891AC3F243007EAC78 /* DownloadTask.swift in Sources */,
+				8CCD5A931AC3F8BB007EAC78 /* TPCommon.swift in Sources */,
+				8CCD5A8B1AC3F2CE007EAC78 /* TPTask.swift in Sources */,
+				8CCD5A951AC3FC6C007EAC78 /* Transaction.swift in Sources */,
+				8CCD5A8F1AC3F3A0007EAC78 /* Transporter.swift in Sources */,
+				8CCD5A871AC3F237007EAC78 /* UploadTask.swift in Sources */,
+				8CCD5A8D1AC3F2DA007EAC78 /* TPExtensions.swift in Sources */,
 				8CBBD9F31AC3F11500A59F1D /* ViewController.swift in Sources */,
 				8CBBD9F11AC3F11500A59F1D /* AppDelegate.swift in Sources */,
 			);
@@ -416,6 +448,7 @@
 				8CBBDA0C1AC3F11500A59F1D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8CBBDA0D1AC3F11500A59F1D /* Build configuration list for PBXNativeTarget "ExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +457,7 @@
 				8CBBDA0F1AC3F11500A59F1D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
