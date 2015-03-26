@@ -13,17 +13,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        let task1 = DownloadTask()
-            .progress {
+        let task1 = DownloadTask().progress {
                 println("task1: uploading")
             }
             .completed {
                 NSLog("task1: completed")
-        }
+            }
         
         let tasks = (2...6).map { i -> UploadTask in
-            let task = UploadTask(data: NSData())
-                .progress {
+            let task = UploadTask(data: NSData()).progress {
                     NSLog("task\(i): uploading")
                 }
                 .completed {
@@ -39,10 +37,12 @@ class ViewController: UIViewController {
             .completed {
                 NSLog("transaction1: completed")
             }
+            
             .push([task2, task3])
             .completed {
                 NSLog("transaction2: completed")
             }
+            
             .push(tasks[2] --> tasks[3] --> tasks[4])
             .completed {
                 NSLog("transaction3: completed")

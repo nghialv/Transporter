@@ -9,15 +9,24 @@
 import Foundation
 
 public class UploadTask : TPTask {
-    public var method: TPMethod = .POST
+    public var method: TPMethod
+    var task: NSURLSessionUploadTask
     
-    init(data: NSData) {
-        super.init()
+    override init() {
         method = .POST
+        task = NSURLSessionUploadTask()
+        super.init()
     }
     
-    init(file: String) {
-        super.init()
-        method = .POST
+    convenience init(data: NSData) {
+        self.init()
+    }
+    
+    convenience init(file: String) {
+        self.init()
+    }
+    
+    public override func resume() {
+        
     }
 }

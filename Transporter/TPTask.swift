@@ -8,12 +8,10 @@
 
 import Foundation
 
-public class TPTask {
+public class TPTask : NSObject {
+    public var retryCount: UInt = 1
     public var progressHandler: ProgressHandler?
     public var completionHandler: CompletionHandler?
-    
-    public init() {
-    }
     
     public func progress(handler: ProgressHandler) -> Self {
         progressHandler = handler
@@ -26,5 +24,8 @@ public class TPTask {
     }
     
     public func resume() {
+    }
+    
+    public func suspend() {
     }
 }

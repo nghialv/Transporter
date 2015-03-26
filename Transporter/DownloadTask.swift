@@ -9,10 +9,16 @@
 import Foundation
 
 public class DownloadTask : TPTask {
-    public var method: TPMethod = .POST
+    public var method: TPMethod
+    var task: NSURLSessionDownloadTask
     
     override init() {
-        super.init()
         method = .GET
+        task = NSURLSessionDownloadTask()
+        super.init()
+    }
+    
+    public override func resume() {
+        
     }
 }
