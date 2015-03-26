@@ -12,39 +12,40 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let task1 = UploadTask(data: NSData())
-            .progress {
-                println("uploading")
-            }
-            .completed {
-                NSLog("Completed")
-            }
        
-        let task2 = UploadTask(data: NSData())
+        let task1 = DownloadTask()
             .progress {
-                println("uploading")
+                println("task1: uploading")
             }
             .completed {
-                NSLog("Completed")
+                NSLog("task1: completed")
         }
-        let task3 = task1
-        let task4 = task2
+        
+        let tasks = (2...6).map { i -> UploadTask in
+            let task = UploadTask(data: NSData())
+                .progress {
+                    NSLog("task\(i): uploading")
+                }
+                .completed {
+                    NSLog("task\(i): completed")
+                }
+            return task
+        }
+        
+        let task2 = tasks[0]
+        let task3 = tasks[1]
         
         Transporter.push(task1)
-            .progress {
-                
-            }
             .completed {
-                
+                NSLog("transaction1: completed")
             }
             .push([task2, task3])
             .completed {
-                
+                NSLog("transaction2: completed")
             }
-            .push(task2 --> task3 --> task4)
+            .push(tasks[2] --> tasks[3] --> tasks[4])
             .completed {
-                
+                NSLog("transaction3: completed")
             }
             .resume()
     }

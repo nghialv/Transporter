@@ -9,7 +9,6 @@
 import Foundation
 
 public class TPTask {
-    public var method: TPMethod = .POST
     public var progressHandler: ProgressHandler?
     public var completionHandler: CompletionHandler?
     
@@ -25,11 +24,7 @@ public class TPTask {
         completionHandler = handler
         return self
     }
-}
-
-// MARK - Internal methods
-extension TPTask {
-    func resume() {
-        
+    
+    public func resume() {
     }
 }

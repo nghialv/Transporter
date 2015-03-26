@@ -9,7 +9,8 @@
 import Foundation
 
 public class UploadTask : TPTask {
-
+    public var method: TPMethod = .POST
+    
     init(data: NSData) {
         super.init()
         method = .POST

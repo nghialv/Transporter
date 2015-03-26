@@ -8,10 +8,10 @@
 
 import Foundation
 
-public enum TPMethod {
-    case GET
-    case POST
-    case PUT
+public enum TPMethod : String {
+    case GET    = "GET"
+    case POST   = "POST"
+    case PUT    = "PUT"
 }
 
 public typealias ProgressHandler = () -> ()
@@ -20,9 +20,9 @@ public typealias CompletionHandler = () -> ()
 infix operator --> { associativity left precedence 160 }
 
 func --> (left: TPTask, right: TPTask) -> TPTaskGroup {
-    return TPTaskGroup()
+    return TPTaskGroup(left: left, right: right)
 }
 
 func --> (left: TPTaskGroup, right: TPTask) -> TPTaskGroup {
-    return left
+    return left.append(right)
 }
