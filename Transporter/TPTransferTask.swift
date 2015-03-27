@@ -10,10 +10,16 @@ import Foundation
 
 public class TPTransferTask : TPTask {
     public var method: TPMethod = .GET
+    var url: String
     var session: NSURLSession? {
         didSet {
             setupTask()
         }
+    }
+   
+    init(url: String) {
+        self.url = url
+        super.init()
     }
    
     func setupTask() {

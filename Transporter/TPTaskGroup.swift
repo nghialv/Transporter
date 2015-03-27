@@ -19,6 +19,8 @@ public class TPTaskGroup : TPTask {
     var mode: RunMode!
     var configured: Bool = false
     var next: TPTaskGroup?
+    var curTaskIndex = 0
+    private var sessionTasks: [NSURLSessionTask: TPTransferTask] = [:]
     
     public init(task: TPTransferTask) {
         super.init()
@@ -59,8 +61,16 @@ public class TPTaskGroup : TPTask {
                     task.session = session
                 }
             }
+            for task in tasks {
+                if let st = (task as? DownloadTask)?.task {
+                    sessionTasks[st] = task
+                } else if let st = (task as? UploadTask)?.task {
+                    sessionTasks[st] = task
+                }
+            }
         }
-        tasks.first?.resume()
+        
+        tasks[curTaskIndex].resume()
     }
     
     private func createSession() -> NSURLSession {
@@ -80,6 +90,21 @@ extension TPTaskGroup : NSURLSessionDelegate {
 extension TPTaskGroup : NSURLSessionTaskDelegate {
     // When any task completes
     public func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
+        NSLog("[Session] a session task did complete with error : \(error)")
+        if let task = sessionTasks[task] {
+            task.completionHandler?()
+        }
+        switch mode! {
+        case .Concurent:
+            break;
+        case .Serial:
+            curTaskIndex++
+            if curTaskIndex < tasks.count {
+                tasks[curTaskIndex].resume()
+            } else {
+                self.completionHandler?()
+            }
+        }
     }
     
     // Requests credentials from the delegate in response to an authentication request from the remote server
@@ -102,12 +127,13 @@ extension TPTaskGroup : NSURLSessionDownloadDelegate {
     
     // Periodically informs the delegate about the download’s progress
     public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        let ratio = totalBytesExpectedToWrite == NSURLSessionTransferSizeUnknown ? -1.0 : Double(totalBytesWritten) / Double(totalBytesExpectedToWrite)
-        NSLog("downloaded: \(ratio)")
+        if let task = sessionTasks[downloadTask] {
+            task.progressHandler?(completedBytes: totalBytesWritten, totalBytes: totalBytesExpectedToWrite)
+        }
     }
     
     // Download task completes successfully
     public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
-        NSLog("Download finished")
+        NSLog("[Session] Download finished")
     }
 }

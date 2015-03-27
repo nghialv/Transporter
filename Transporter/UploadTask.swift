@@ -11,17 +11,17 @@ import Foundation
 public class UploadTask : TPTransferTask {
     var task: NSURLSessionUploadTask?
     
-    override init() {
-        super.init()
+    override init(url: String) {
+        super.init(url: url)
         method = .POST
     }
     
-    convenience init(data: NSData) {
-        self.init()
+    convenience init(url: String, data: NSData) {
+        self.init(url: url)
     }
     
-    convenience init(file: String) {
-        self.init()
+    convenience init(url: String, file: String) {
+        self.init(url: url)
     }
    
     override func setupTask() {

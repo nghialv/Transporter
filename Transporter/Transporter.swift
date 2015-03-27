@@ -20,6 +20,11 @@ public struct Transporter {
         let transaction = Transaction(tasks: tasks)
         return transaction
     }
+    
+    public static func push(taskGroup: TPTaskGroup) -> Transaction {
+        let transaction = Transaction(taskGroup: taskGroup)
+        return transaction
+    }
 }
 
 public extension Transporter {

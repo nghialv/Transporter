@@ -11,14 +11,14 @@ import Foundation
 public class DownloadTask : TPTransferTask {
     var task: NSURLSessionDownloadTask?
     
-    override init() {
-        super.init()
+    override init(url: String) {
+        super.init(url: url)
         method = .GET
     }
    
     override func setupTask() {
-        let url = NSURL(string: "https://developer.apple.com/library/ios/documentation/iphone/conceptual/iphoneosprogrammingguide/iphoneappprogrammingguide.pdf")!
-        let request = NSMutableURLRequest(URL: url)
+        let requestUrl = NSURL(string: url)!
+        let request = NSMutableURLRequest(URL: requestUrl)
         request.HTTPMethod = method.rawValue
         task = session?.downloadTaskWithRequest(request)
     }

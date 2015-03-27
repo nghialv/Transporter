@@ -12,17 +12,32 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        let task1 = DownloadTask().progress {
-                println("task1: uploading")
+        
+        let downloadUrl1 = "https://developer.apple.com/library/ios/documentation/iphone/conceptual/iphoneosprogrammingguide/iphoneappprogrammingguide.pdf"
+        let downloadUrl2 = "https://developer.apple.com/library/ios/documentation/iphone/conceptual/iphoneosprogrammingguide/iphoneappprogrammingguide.pdf"
+        let downloadUrl3 = "https://s3.amazonaws.com/hayageek/downloads/SimpleBackgroundFetch.zip"
+        let uploadUrl = "http://httpbin.org/post"
+        
+        let task1 = DownloadTask(url: downloadUrl1).progress { cur, total in
+                let per = Double(cur) / Double(total)
+                println("task1: downloading: \(per)")
             }
             .completed {
                 NSLog("task1: completed")
             }
         
+        let task2 = DownloadTask(url: downloadUrl2).progress { cur, total in
+            let per = Double(cur) / Double(total)
+            println("task2: downloading: \(per)")
+            }
+            .completed {
+                NSLog("task2: completed")
+        }
+        
         let tasks = (2...6).map { i -> UploadTask in
-            let task = UploadTask(data: NSData()).progress {
-                    NSLog("task\(i): uploading")
+            let task = UploadTask(url: uploadUrl, data: NSData()).progress { cur, total in
+                    let per = Double(cur) / Double(total)
+                    println("task\(i): uploading: \(per)")
                 }
                 .completed {
                     NSLog("task\(i): completed")
@@ -30,14 +45,14 @@ class ViewController: UIViewController {
             return task
         }
         
-        let task2 = tasks[0]
-        let task3 = tasks[1]
-        
-        Transporter.push(task1)
+        let task3 = tasks[0]
+        let task4 = tasks[1]
+       
+        Transporter.push(task1 --> task2)
             .completed {
                 NSLog("transaction1: completed")
             }
-            .push([task2, task3])
+            .push([task3, task4])
             .completed {
                 NSLog("transaction2: completed")
             }

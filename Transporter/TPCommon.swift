@@ -14,7 +14,7 @@ public enum TPMethod : String {
     case PUT    = "PUT"
 }
 
-public typealias ProgressHandler = () -> ()
+public typealias ProgressHandler = (completedBytes: Int64, totalBytes: Int64) -> ()
 public typealias CompletionHandler = () -> ()
 
 infix operator --> { associativity left precedence 160 }
