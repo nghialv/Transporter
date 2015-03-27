@@ -10,8 +10,11 @@ import Foundation
 
 public class DownloadTask : TPTransferTask {
     var task: NSURLSessionDownloadTask?
+    var destination: NSURL
+    var movingError: NSError?
     
-    override init(url: String, params: [String: AnyObject]? = nil) {
+    init(url: String, destination: NSURL, params: [String: AnyObject]? = nil) {
+        self.destination = destination
         super.init(url: url, params: params)
         method = .GET
     }

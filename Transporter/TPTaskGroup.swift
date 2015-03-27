@@ -181,5 +181,8 @@ extension TPTaskGroup : NSURLSessionDownloadDelegate {
     // Download task completes successfully
     public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
         NSLog("[Session] Download finished : \(location)")
+        if let task = sessionTasks[downloadTask] as? DownloadTask {
+            NSFileManager.defaultManager().moveItemAtURL(location, toURL: task.destination, error: &task.movingError)
+        }
     }
 }
