@@ -69,8 +69,15 @@ public class TPTaskGroup : TPTask {
                 }
             }
         }
-        
-        tasks[curTaskIndex].resume()
+       
+        if mode == .Serial {
+            curTaskIndex = 0
+            tasks[curTaskIndex].resume()
+        } else {
+            for task in tasks {
+                task.resume()
+            }
+        }
     }
     
     private func createSession() -> NSURLSession {
@@ -92,18 +99,26 @@ extension TPTaskGroup : NSURLSessionTaskDelegate {
     public func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
         NSLog("[Session] a session task did complete with error : \(error)")
         if let task = sessionTasks[task] {
+            task.isCompleted = true
             task.completionHandler?()
         }
+        var groupCompleted = false
         switch mode! {
         case .Concurent:
-            break;
+            groupCompleted = tasks.filter { $0.isRunning }.isEmpty
+        
         case .Serial:
             curTaskIndex++
             if curTaskIndex < tasks.count {
                 tasks[curTaskIndex].resume()
             } else {
-                self.completionHandler?()
+                groupCompleted = true
             }
+        }
+        // run the completion handler of current group and call the next group resume
+        if groupCompleted {
+            self.completionHandler?()
+            next?.resume()
         }
     }
     

@@ -18,6 +18,7 @@ class ViewController: UIViewController {
         let downloadUrl3 = "https://s3.amazonaws.com/hayageek/downloads/SimpleBackgroundFetch.zip"
         let uploadUrl = "http://httpbin.org/post"
         
+        // Downloading tasks
         let task1 = DownloadTask(url: downloadUrl1).progress { cur, total in
                 let per = Double(cur) / Double(total)
                 println("task1: downloading: \(per)")
@@ -33,7 +34,16 @@ class ViewController: UIViewController {
             .completed {
                 NSLog("task2: completed")
         }
+       
+        let task3 = DownloadTask(url: downloadUrl3).progress { cur, total in
+            let per = Double(cur) / Double(total)
+            println("task3: downloading: \(per)")
+            }
+            .completed {
+                NSLog("task3: completed")
+        }
         
+        // Uploading tasks
         let tasks = (2...6).map { i -> UploadTask in
             let task = UploadTask(url: uploadUrl, data: NSData()).progress { cur, total in
                     let per = Double(cur) / Double(total)
@@ -45,14 +55,15 @@ class ViewController: UIViewController {
             return task
         }
         
-        let task3 = tasks[0]
-        let task4 = tasks[1]
+        let task4 = tasks[0]
+        let task5 = tasks[1]
        
-        Transporter.push(task1 --> task2)
+        Transporter.push([task1, task2])
             .completed {
                 NSLog("transaction1: completed")
             }
-            .push([task3, task4])
+            .push(task3)
+            .push([task5, task5])
             .completed {
                 NSLog("transaction2: completed")
             }
