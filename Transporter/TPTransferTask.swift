@@ -24,6 +24,7 @@ public class TPTransferTask : TPTask {
     public var allowsCellularAccess = true
     public var params: [String: AnyObject]?
     public var headers: [String: String]?
+    public var completionHandler: TransferCompletionHandler?
     
     var url: String
     var request: NSMutableURLRequest?
@@ -60,5 +61,10 @@ public class TPTransferTask : TPTask {
         }
         
         self.request = request
+    }
+    
+    public func completed(handler: TransferCompletionHandler) -> Self {
+        completionHandler = handler
+        return self
     }
 }

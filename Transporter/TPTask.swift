@@ -18,7 +18,6 @@ import Foundation
 public class TPTask : NSObject {
     public var retryCount: UInt = 1
     public var progressHandler: ProgressHandler?
-    public var completionHandler: CompletionHandler?
     internal(set) public var isCompleted: Bool = false
     public var isRunning : Bool {
         return !isCompleted
@@ -29,14 +28,11 @@ public class TPTask : NSObject {
         return self
     }
     
-    public func completed(handler: CompletionHandler) -> Self {
-        completionHandler = handler
-        return self
-    }
-    
     public func resume() {
+        
     }
     
     public func suspend() {
+        
     }
 }

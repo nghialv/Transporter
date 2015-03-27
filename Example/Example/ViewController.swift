@@ -21,33 +21,33 @@ class ViewController: UIViewController {
         let downloadUrl3 = "https://s3.amazonaws.com/hayageek/downloads/SimpleBackgroundFetch.zip"
         let uploadUrl = "http://httpbin.org/post"
         let documentsPath: AnyObject = NSSearchPathForDirectoriesInDomains(.DocumentDirectory,.UserDomainMask,true)[0]
-        let destination =  NSURL(string: documentsPath.stringByAppendingString("/file.pdf"))!
+        let des =  NSURL(string: documentsPath.stringByAppendingString("/file.pdf"))!
 
         // Downloading tasks
-        let task1 = DownloadTask(url: downloadUrl1, destination: destination)
+        let task1 = DownloadTask(url: downloadUrl1, destination: des)
             .progress { cur, total in
                 let per = Double(cur) / Double(total)
                 println("task1: downloading: \(per)")
             }
-            .completed {
+            .completed { response, json, error in
                 println("task1: completed")
             }
         
-        let task2 = DownloadTask(url: downloadUrl2, destination: destination)
+        let task2 = DownloadTask(url: downloadUrl2, destination: des)
             .progress { cur, total in
                 let per = Double(cur) / Double(total)
                 println("task2: downloading: \(per)")
             }
-            .completed {
+            .completed { response, json, error in
                 println("task2: completed")
             }
        
-        let task3 = DownloadTask(url: downloadUrl3, destination: destination)
+        let task3 = DownloadTask(url: downloadUrl3, destination: des)
             .progress { cur, total in
                 let per = Double(cur) / Double(total)
                 println("task3: downloading: \(per)")
             }
-            .completed {
+            .completed { response, json, error in
                 println("task3: completed")
             }
         
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
                 let per = Double(cur) / Double(total)
                 println("task4: uploading: \(per)")
             }
-            .completed {
+            .completed { response, _, error in
                 println("task4: completed")
             }
         
@@ -70,7 +70,7 @@ class ViewController: UIViewController {
                 let per = Double(cur) / Double(total)
                 println("task5: uploading: \(per)")
             }
-            .completed {
+            .completed { response, _, error in
                 println("task5: completed")
             }
         
@@ -80,7 +80,7 @@ class ViewController: UIViewController {
                     let per = Double(cur) / Double(total)
                     println("task\(i): uploading: \(per)")
                 }
-                .completed {
+                .completed { response, _, error in
                     println("task\(i): completed")
                 }
             return task

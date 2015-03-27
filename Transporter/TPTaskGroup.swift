@@ -20,6 +20,8 @@ public enum RunMode {
 }
 
 public class TPTaskGroup : TPTask {
+    public var completionHandler: CompletionHandler?
+    
     var tasks: [TPTransferTask] = []
     var sessions: [NSURLSession] = []
     var mode: RunMode!
@@ -91,6 +93,11 @@ public class TPTaskGroup : TPTask {
             }
         }
     }
+   
+    public func completed(handler: CompletionHandler) -> Self {
+        completionHandler = handler
+        return self
+    }
     
     private func createSession() -> NSURLSession {
         let identifier = NSUUID().UUIDString
@@ -116,9 +123,12 @@ extension TPTaskGroup : NSURLSessionTaskDelegate {
     // When any task completes
     public func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
         NSLog("[Session] a session task did complete with error : \(error)")
-        if let task = sessionTasks[task] {
-            task.isCompleted = true
-            task.completionHandler?()
+        if let t = sessionTasks[task] {
+            t.isCompleted = true
+            
+            // TODO: get json data
+            let httpResponse = task.response as? NSHTTPURLResponse
+            t.completionHandler?(response: httpResponse, json: nil, error: error)
         }
         var groupCompleted = false
         switch mode! {
