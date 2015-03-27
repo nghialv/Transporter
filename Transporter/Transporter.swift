@@ -8,6 +8,12 @@
 
 import Foundation
 
+// TODO
+/*
+- header configuration
+- background event handling
+*/
+
 public struct Transporter {
     private static var backgroundEventHandlers: [() -> ()] = []
     

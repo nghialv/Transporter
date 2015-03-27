@@ -8,6 +8,13 @@
 
 import Foundation
 
+// TODO
+/*
+- resume
+- suspend
+- cancel
+*/
+
 public class TPTask : NSObject {
     public var retryCount: UInt = 1
     public var progressHandler: ProgressHandler?

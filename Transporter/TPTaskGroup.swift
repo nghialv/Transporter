@@ -8,6 +8,12 @@
 
 import Foundation
 
+// TODO
+/*
+- group progress
+- group completion handler
+*/
+
 enum RunMode {
     case Concurent
     case Serial

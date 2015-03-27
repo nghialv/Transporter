@@ -8,6 +8,15 @@
 
 import Foundation
 
+// TODO
+/*
+- header configuration
+- parameter 
+- resume
+- suspend
+- cancel
+*/
+
 public class TPTransferTask : TPTask {
     public var method: TPMethod = .GET
     var url: String
@@ -16,7 +25,7 @@ public class TPTransferTask : TPTask {
             setupTask()
         }
     }
-   
+    
     init(url: String) {
         self.url = url
         super.init()

@@ -8,6 +8,14 @@
 
 import Foundation
 
+// TODO
+/*
+- completionHander
+    - uploading
+    - downloading
+    - group
+*/
+
 public enum TPMethod : String {
     case GET    = "GET"
     case POST   = "POST"
