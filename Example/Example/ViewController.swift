@@ -87,24 +87,24 @@ class ViewController: UIViewController {
         }
        
         /*
-        Transporter.push([task1, task2])
+        Transporter.add([task1, task2])
             .completed {
                 println("transaction1: completed")
             }
-            .push(task3)
+            .add(task3)
             .completed {
                 println("transaction2: completed")
             }
             .resume()
         
-        Transporter.push(task4)
+        Transporter.add(task4)
             .completed {
                 println("transaction3: completed")
             }
             .resume()
         */
         
-        Transporter.push(task1 <--> task2)
+        Transporter.add(task1 <--> task2 <--> task3)
             .progress { cur, total in
                 let ratio = Double(cur) / Double(total)
                 println("transaction4: \(ratio)")
@@ -112,15 +112,16 @@ class ViewController: UIViewController {
             .completed {
                 println("transaction4: completed")
             }
+            .add(task4 --> task5)
             .resume()
         
         /*
-            .push(task1)
+            .add(task1)
             .completed {
                 println("transaction5: completed")
             }
             .resume()
-            .push(tasks[2] --> tasks[3] --> tasks[4])
+            .add(tasks[2] --> tasks[3] --> tasks[4])
             .completed {
                 println("transaction5: completed")
             }

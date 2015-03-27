@@ -22,17 +22,17 @@ public struct Transporter {
     
     private static var backgroundEventHandlers: [String: () -> ()] = [:]
     
-    public static func push(task: TPTransferTask) -> Transaction {
+    public static func add(task: TPTransferTask) -> Transaction {
         let transaction = Transaction(task: task)
         return transaction
     }
     
-    public static func push(tasks: [TPTransferTask]) -> Transaction {
+    public static func add(tasks: [TPTransferTask]) -> Transaction {
         let transaction = Transaction(tasks: tasks)
         return transaction
     }
     
-    public static func push(taskGroup: TPTaskGroup) -> Transaction {
+    public static func add(taskGroup: TPTaskGroup) -> Transaction {
         let transaction = Transaction(taskGroup: taskGroup)
         return transaction
     }

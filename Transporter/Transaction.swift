@@ -27,21 +27,21 @@ public class Transaction {
         currentTaskGroup = firstTaskGroup
     }
     
-    public func push(task: TPTransferTask) -> Self {
+    public func add(task: TPTransferTask) -> Self {
         let group = TPTaskGroup(task: task)
         currentTaskGroup?.next = group
         currentTaskGroup = group
         return self
     }
     
-    public func push(tasks: [TPTransferTask]) -> Self {
+    public func add(tasks: [TPTransferTask]) -> Self {
         let group = TPTaskGroup(tasks: tasks)
         currentTaskGroup?.next = group
         currentTaskGroup = group
         return self
     }
    
-    public func push(taskGroup: TPTaskGroup) -> Self {
+    public func add(taskGroup: TPTaskGroup) -> Self {
         currentTaskGroup?.next = taskGroup
         currentTaskGroup = taskGroup
         return self

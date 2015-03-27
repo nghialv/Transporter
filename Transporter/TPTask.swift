@@ -35,4 +35,8 @@ public class TPTask : NSObject {
     public func suspend() {
         
     }
+    
+    public func cancel() {
+        
+    }
 }
