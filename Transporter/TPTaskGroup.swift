@@ -14,8 +14,8 @@ import Foundation
 - group completion handler
 */
 
-enum RunMode {
-    case Concurent
+public enum RunMode {
+    case Concurrent
     case Serial
 }
 
@@ -39,13 +39,13 @@ public class TPTaskGroup : TPTask {
    
     public init(tasks: [TPTransferTask]) {
         super.init()
-        mode = .Concurent
+        mode = .Concurrent
         self.tasks = tasks
     }
     
-    public init(left: TPTransferTask, right: TPTransferTask) {
+    public init(left: TPTransferTask, right: TPTransferTask, mode: RunMode) {
         super.init()
-        mode = .Serial
+        self.mode = mode
         tasks = [left, right]
     }
     
@@ -57,7 +57,7 @@ public class TPTaskGroup : TPTask {
     override public func resume() {
         if !configured {
             switch mode! {
-            case .Concurent:
+            case .Concurrent:
                 let session = createSession()
                 sessions = [session]
                 for task in tasks {
@@ -116,7 +116,7 @@ extension TPTaskGroup : NSURLSessionTaskDelegate {
         }
         var groupCompleted = false
         switch mode! {
-        case .Concurent:
+        case .Concurrent:
             groupCompleted = tasks.filter { $0.isRunning }.isEmpty
         
         case .Serial:

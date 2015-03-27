@@ -28,9 +28,19 @@ public typealias CompletionHandler = () -> ()
 infix operator --> { associativity left precedence 160 }
 
 func --> (left: TPTransferTask, right: TPTransferTask) -> TPTaskGroup {
-    return TPTaskGroup(left: left, right: right)
+    return TPTaskGroup(left: left, right: right, mode: .Serial)
 }
 
 func --> (left: TPTaskGroup, right: TPTransferTask) -> TPTaskGroup {
+    return left.append(right)
+}
+
+infix operator <--> { associativity left precedence 160 }
+
+func <--> (left: TPTransferTask, right: TPTransferTask) -> TPTaskGroup {
+    return TPTaskGroup(left: left, right: right, mode: .Concurrent)
+}
+
+func <--> (left: TPTaskGroup, right: TPTransferTask) -> TPTaskGroup {
     return left.append(right)
 }
