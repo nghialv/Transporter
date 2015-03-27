@@ -11,6 +11,8 @@
 		8C816FD31AC4E5A400BE5DC9 /* pdf_file.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 8C816FD01AC4E5A400BE5DC9 /* pdf_file.pdf */; };
 		8C816FD41AC4E5A400BE5DC9 /* zip_file.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8C816FD11AC4E5A400BE5DC9 /* zip_file.zip */; };
 		8C816FD61AC4EE2100BE5DC9 /* zip_file2.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8C816FD51AC4EE2100BE5DC9 /* zip_file2.zip */; };
+		8C816FDA1AC4F29200BE5DC9 /* UploadingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C816FD91AC4F29200BE5DC9 /* UploadingTestCase.swift */; };
+		8C816FDC1AC4F2DA00BE5DC9 /* DownloadingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C816FDB1AC4F2DA00BE5DC9 /* DownloadingTestCase.swift */; };
 		8CBBD9F11AC3F11500A59F1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBD9F01AC3F11500A59F1D /* AppDelegate.swift */; };
 		8CBBD9F31AC3F11500A59F1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CBBD9F21AC3F11500A59F1D /* ViewController.swift */; };
 		8CBBD9F61AC3F11500A59F1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CBBD9F41AC3F11500A59F1D /* Main.storyboard */; };
@@ -43,6 +45,8 @@
 		8C816FD01AC4E5A400BE5DC9 /* pdf_file.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pdf_file.pdf; sourceTree = "<group>"; };
 		8C816FD11AC4E5A400BE5DC9 /* zip_file.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = zip_file.zip; sourceTree = "<group>"; };
 		8C816FD51AC4EE2100BE5DC9 /* zip_file2.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = zip_file2.zip; sourceTree = "<group>"; };
+		8C816FD91AC4F29200BE5DC9 /* UploadingTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadingTestCase.swift; sourceTree = "<group>"; };
+		8C816FDB1AC4F2DA00BE5DC9 /* DownloadingTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadingTestCase.swift; sourceTree = "<group>"; };
 		8CBBD9EB1AC3F11500A59F1D /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CBBD9EF1AC3F11500A59F1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CBBD9F01AC3F11500A59F1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				8CBBDA061AC3F11500A59F1D /* ExampleTests.swift */,
+				8C816FD91AC4F29200BE5DC9 /* UploadingTestCase.swift */,
+				8C816FDB1AC4F2DA00BE5DC9 /* DownloadingTestCase.swift */,
 				8CBBDA041AC3F11500A59F1D /* Supporting Files */,
 			);
 			path = ExampleTests;
@@ -291,6 +297,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CBBDA071AC3F11500A59F1D /* ExampleTests.swift in Sources */,
+				8C816FDC1AC4F2DA00BE5DC9 /* DownloadingTestCase.swift in Sources */,
+				8C816FDA1AC4F29200BE5DC9 /* UploadingTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +416,7 @@
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_MODULE_NAME = Transporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -419,6 +428,7 @@
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_MODULE_NAME = Transporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
