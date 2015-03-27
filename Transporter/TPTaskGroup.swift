@@ -155,6 +155,14 @@ extension TPTaskGroup : NSURLSessionTaskDelegate {
             }
         }
     }
+    
+    public func URLSession(session: NSURLSession, task: NSURLSessionTask, needNewBodyStream completionHandler: (NSInputStream!) -> Void) {
+        if let uploadTask = task as? NSURLSessionUploadTask {
+            if let task = sessionTasks[uploadTask] as? UploadTask {
+                completionHandler(task.stream!)
+            }
+        }
+    }
 }
 
 extension TPTaskGroup : NSURLSessionDownloadDelegate {
