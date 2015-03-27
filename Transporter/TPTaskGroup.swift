@@ -95,7 +95,11 @@ public class TPTaskGroup : TPTask {
     private func createSession() -> NSURLSession {
         let identifier = NSUUID().UUIDString
         let configuration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(identifier)
-        configuration.HTTPMaximumConnectionsPerHost = 5
+        configuration.HTTPMaximumConnectionsPerHost = Transporter.HTTPMaximumconnectionsPerHost
+        configuration.timeoutIntervalForRequest = Transporter.timeoutIntervalForRequest
+        configuration.timeoutIntervalForResource = Transporter.timeoutIntervalForResource
+        configuration.HTTPAdditionalHeaders = Transporter.headers
+        
         let session = NSURLSession(configuration: configuration, delegate: self, delegateQueue: nil)
         return session
     }

@@ -23,6 +23,7 @@ public class TPTransferTask : TPTask {
     public var HTTPShouldHandleCookies = true
     public var allowsCellularAccess = true
     public var params: [String: AnyObject]?
+    public var headers: [String: String]?
     
     var url: String
     var request: NSMutableURLRequest?
@@ -42,6 +43,18 @@ public class TPTransferTask : TPTask {
         request.HTTPShouldUsePipelining = HTTPShouldUsePipelining
         request.HTTPShouldHandleCookies = HTTPShouldHandleCookies
         request.allowsCellularAccess = allowsCellularAccess
+        
+        // append header
+        if let headers = headers {
+            for (key, value) in headers {
+                request.setValue(value, forHTTPHeaderField: key)
+            }
+        }
+        // append http body
+        if let params = params {
+            
+        }
+        
         self.request = request
     }
 }
