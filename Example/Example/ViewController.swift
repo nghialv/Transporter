@@ -9,10 +9,13 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet weak var startButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+   
+    @IBAction func didPressedStartButton(sender: AnyObject) {
         let downloadUrl1 = "https://developer.apple.com/library/ios/documentation/iphone/conceptual/iphoneosprogrammingguide/iphoneappprogrammingguide.pdf"
         let downloadUrl2 = "https://developer.apple.com/library/ios/documentation/iphone/conceptual/iphoneosprogrammingguide/iphoneappprogrammingguide.pdf"
         let downloadUrl3 = "https://s3.amazonaws.com/hayageek/downloads/SimpleBackgroundFetch.zip"
@@ -58,7 +61,7 @@ class ViewController: UIViewController {
         let task4 = tasks[0]
         let task5 = tasks[1]
        
-        Transporter.push([task1, task2])
+        Transporter.push(task1 --> task2)
             .completed {
                 NSLog("transaction1: completed")
             }

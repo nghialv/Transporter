@@ -151,6 +151,6 @@ extension TPTaskGroup : NSURLSessionDownloadDelegate {
     
     // Download task completes successfully
     public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
-        NSLog("[Session] Download finished")
+        NSLog("[Session] Download finished : \(location)")
     }
 }
