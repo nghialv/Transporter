@@ -19,19 +19,29 @@ import Foundation
 
 public class TPTransferTask : TPTask {
     public var method: TPMethod = .GET
-    var url: String
-    var totalBytes: Int64 = 0
-    var session: NSURLSession? {
-        didSet {
-            setupTask()
-        }
-    }
+    public var HTTPShouldUsePipelining = false
+    public var HTTPShouldHandleCookies = true
+    public var allowsCellularAccess = true
+    public var params: [String: AnyObject]?
     
-    init(url: String) {
+    var url: String
+    var request: NSMutableURLRequest?
+    var totalBytes: Int64 = 0
+    var session: NSURLSession?
+    
+    init(url: String, params: [String: AnyObject]? = nil) {
         self.url = url
+        self.params = params
         super.init()
     }
    
-    func setupTask() {
+    func setup() {
+        let requestUrl = NSURL(string: url)!
+        let request = NSMutableURLRequest(URL: requestUrl)
+        request.HTTPMethod = method.rawValue
+        request.HTTPShouldUsePipelining = HTTPShouldUsePipelining
+        request.HTTPShouldHandleCookies = HTTPShouldHandleCookies
+        request.allowsCellularAccess = allowsCellularAccess
+        self.request = request
     }
 }

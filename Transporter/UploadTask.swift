@@ -19,17 +19,17 @@ public class UploadTask : TPTransferTask {
     var uploadDataType: UploadDataType = .File
     var file: NSURL?
     
-    override init(url: String) {
-        super.init(url: url)
+    override init(url: String, params: [String: AnyObject]? = nil) {
+        super.init(url: url, params: params)
         method = .POST
     }
     
-    convenience init(url: String, data: NSData) {
-        self.init(url: url)
+    convenience init(url: String, data: NSData, params: [String: AnyObject]? = nil) {
+        self.init(url: url, params: params)
     }
     
-    convenience init(url: String, file: NSURL) {
-        self.init(url: url)
+    convenience init(url: String, file: NSURL, params: [String: AnyObject]? = nil) {
+        self.init(url: url, params: params)
         uploadDataType = .File
         self.file = file
         
@@ -43,12 +43,12 @@ public class UploadTask : TPTransferTask {
         }
     }
    
-    override func setupTask() {
-        let requestUrl = NSURL(string: url)!
-        let request = NSMutableURLRequest(URL: requestUrl)
-        request.HTTPMethod = method.rawValue
-        if let file = self.file {
-            task = session?.uploadTaskWithRequest(request, fromFile: file)
+    override func setup() {
+        super.setup()
+        if let request = request {
+            if let file = self.file {
+                task = session?.uploadTaskWithRequest(request, fromFile: file)
+            }
         }
     }
     

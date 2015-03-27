@@ -70,7 +70,9 @@ public class TPTaskGroup : TPTask {
                     task.session = session
                 }
             }
+            
             for task in tasks {
+                task.setup()
                 if let st = (task as? DownloadTask)?.task {
                     sessionTasks[st] = task
                 } else if let st = (task as? UploadTask)?.task {

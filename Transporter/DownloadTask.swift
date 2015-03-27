@@ -11,16 +11,16 @@ import Foundation
 public class DownloadTask : TPTransferTask {
     var task: NSURLSessionDownloadTask?
     
-    override init(url: String) {
-        super.init(url: url)
+    override init(url: String, params: [String: AnyObject]? = nil) {
+        super.init(url: url, params: params)
         method = .GET
     }
    
-    override func setupTask() {
-        let requestUrl = NSURL(string: url)!
-        let request = NSMutableURLRequest(URL: requestUrl)
-        request.HTTPMethod = method.rawValue
-        task = session?.downloadTaskWithRequest(request)
+    override func setup() {
+        super.setup()
+        if let request = request {
+            task = session?.downloadTaskWithRequest(request)
+        }
     }
     
     public override func resume() {
