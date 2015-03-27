@@ -15,7 +15,7 @@ import Foundation
 */
 
 public struct Transporter {
-    private static var backgroundEventHandlers: [() -> ()] = []
+    private static var backgroundEventHandlers: [String: () -> ()] = [:]
     
     public static func push(task: TPTransferTask) -> Transaction {
         let transaction = Transaction(task: task)
@@ -35,6 +35,16 @@ public struct Transporter {
 
 public extension Transporter {
     static func handleEventsForBackgroundURLSection(identifier: String, completionHandler: () -> ()) {
-        
+        backgroundEventHandlers[identifier] = completionHandler
+    }
+}
+
+internal extension Transporter {
+    static func sessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
+        let identifier = session.configuration.identifier
+        if let handler = backgroundEventHandlers[identifier] {
+            handler()
+            backgroundEventHandlers.removeValueForKey(identifier)
+        }
     }
 }

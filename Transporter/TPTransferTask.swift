@@ -20,6 +20,7 @@ import Foundation
 public class TPTransferTask : TPTask {
     public var method: TPMethod = .GET
     var url: String
+    var totalBytes: Int64 = 0
     var session: NSURLSession? {
         didSet {
             setupTask()

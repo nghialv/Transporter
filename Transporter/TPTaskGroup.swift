@@ -26,6 +26,9 @@ public class TPTaskGroup : TPTask {
     var configured: Bool = false
     var next: TPTaskGroup?
     var curTaskIndex = 0
+    var totalBytes: Int64 = 0
+    var completedBytes: Int64 = 0
+    
     private var sessionTasks: [NSURLSessionTask: TPTransferTask] = [:]
     
     public init(task: TPTransferTask) {
@@ -74,6 +77,7 @@ public class TPTaskGroup : TPTask {
                     sessionTasks[st] = task
                 }
             }
+            totalBytes = tasks.reduce(0) { $0 + $1.totalBytes }
         }
        
         if mode == .Serial {
@@ -98,7 +102,7 @@ public class TPTaskGroup : TPTask {
 extension TPTaskGroup : NSURLSessionDelegate {
     // All tasks enqueued have been delivered
     public func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
-        
+        Transporter.sessionDidFinishEventsForBackgroundURLSession(session)
     }
 }
 
@@ -139,7 +143,9 @@ extension TPTaskGroup : NSURLSessionTaskDelegate {
     public func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
         if let uploadTask = task as? NSURLSessionUploadTask {
             if let task = sessionTasks[uploadTask] {
+                completedBytes += bytesSent
                 task.progressHandler?(completedBytes: totalBytesSent, totalBytes: totalBytesExpectedToSend)
+                self.progressHandler?(completedBytes: completedBytes, totalBytes: totalBytes)
             }
         }
     }
@@ -153,6 +159,7 @@ extension TPTaskGroup : NSURLSessionDownloadDelegate {
     // Periodically informs the delegate about the download’s progress
     public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         if let task = sessionTasks[downloadTask] {
+            completedBytes += bytesWritten
             task.progressHandler?(completedBytes: totalBytesWritten, totalBytes: totalBytesExpectedToWrite)
         }
     }

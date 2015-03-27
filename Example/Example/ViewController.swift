@@ -87,23 +87,31 @@ class ViewController: UIViewController {
             .completed {
                 NSLog("transaction2: completed")
             }
-            .push(task4)
+            .resume()
+        
+        Transporter.push(task4)
             .completed {
                 NSLog("transaction3: completed")
             }
             .resume()
         */
-            
-        Transporter.push(task4 --> task5)
+        
+        Transporter.push([task4, task5])
+            .progress { cur, total in
+                let ratio = Double(cur) / Double(total)
+                NSLog("transaction4: \(ratio))")
+            }
             .completed {
                 NSLog("transaction4: completed")
             }
+            .resume()
+        
+        /*
             .push(task1)
             .completed {
                 NSLog("transaction5: completed")
             }
             .resume()
-            /*
             .push(tasks[2] --> tasks[3] --> tasks[4])
             .completed {
                 NSLog("transaction5: completed")
