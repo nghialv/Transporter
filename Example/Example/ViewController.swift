@@ -47,8 +47,28 @@ class ViewController: UIViewController {
         }
         
         // Uploading tasks
-        let tasks = (2...6).map { i -> UploadTask in
-            let task = UploadTask(url: uploadUrl, data: NSData()).progress { cur, total in
+        let path = NSBundle.mainBundle().pathForResource("zip_file", ofType: "zip")
+        let fileUrl = NSURL(fileURLWithPath: path!)!
+        let task4 = UploadTask(url: uploadUrl, file: fileUrl).progress { cur, total in
+            let per = Double(cur) / Double(total)
+            println("task4: uploading: \(per)")
+            }
+            .completed {
+                NSLog("task4: completed")
+        }
+        
+        let path2 = NSBundle.mainBundle().pathForResource("zip_file2", ofType: "zip")
+        let fileUrl2 = NSURL(fileURLWithPath: path!)!
+        let task5 = UploadTask(url: uploadUrl, file: fileUrl2).progress { cur, total in
+            let per = Double(cur) / Double(total)
+            println("task5: uploading: \(per)")
+            }
+            .completed {
+                NSLog("task5: completed")
+        }
+        
+        let tasks = (6...8).map { i -> UploadTask in
+            let task = UploadTask(url: uploadUrl, file: fileUrl).progress { cur, total in
                     let per = Double(cur) / Double(total)
                     println("task\(i): uploading: \(per)")
                 }
@@ -57,11 +77,9 @@ class ViewController: UIViewController {
                 }
             return task
         }
-        
-        let task4 = tasks[0]
-        let task5 = tasks[1]
        
-        Transporter.push(task1 --> task2)
+        /*
+        Transporter.push([task1, task2])
             .completed {
                 NSLog("transaction1: completed")
             }
@@ -69,14 +87,28 @@ class ViewController: UIViewController {
             .completed {
                 NSLog("transaction2: completed")
             }
-            .push([task5, task5])
+            .push(task4)
             .completed {
                 NSLog("transaction3: completed")
             }
-            .push(tasks[2] --> tasks[3] --> tasks[4])
+            .resume()
+        */
+            
+        Transporter.push(task4 --> task5)
             .completed {
                 NSLog("transaction4: completed")
             }
+            .push(task1)
+            .completed {
+                NSLog("transaction5: completed")
+            }
             .resume()
+            /*
+            .push(tasks[2] --> tasks[3] --> tasks[4])
+            .completed {
+                NSLog("transaction5: completed")
+            }
+            .resume()
+            */
     }
 }

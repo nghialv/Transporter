@@ -132,7 +132,9 @@ extension TPTaskGroup : NSURLSessionTaskDelegate {
     
     public func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
         if let uploadTask = task as? NSURLSessionUploadTask {
-            
+            if let task = sessionTasks[uploadTask] {
+                task.progressHandler?(completedBytes: totalBytesSent, totalBytes: totalBytesExpectedToSend)
+            }
         }
     }
 }

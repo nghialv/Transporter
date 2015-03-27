@@ -8,8 +8,16 @@
 
 import Foundation
 
+public enum UploadDataType {
+    case Data
+    case File
+    case Stream
+}
+
 public class UploadTask : TPTransferTask {
     var task: NSURLSessionUploadTask?
+    var uploadDataType: UploadDataType = .File
+    var file: NSURL?
     
     override init(url: String) {
         super.init(url: url)
@@ -20,15 +28,23 @@ public class UploadTask : TPTransferTask {
         self.init(url: url)
     }
     
-    convenience init(url: String, file: String) {
+    convenience init(url: String, file: NSURL) {
         self.init(url: url)
+        uploadDataType = .File
+        self.file = file
     }
    
     override func setupTask() {
-        
+        let requestUrl = NSURL(string: url)!
+        let request = NSMutableURLRequest(URL: requestUrl)
+        request.HTTPMethod = method.rawValue
+        if let file = self.file {
+            task = session?.uploadTaskWithRequest(request, fromFile: file)
+        }
     }
     
     public override func resume() {
-        
+        NSLog("[UploadTask] did resume")
+        task?.resume()
     }
 }
