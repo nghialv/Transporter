@@ -83,7 +83,9 @@ public class TPTaskGroup : TPTask {
     private func createSession() -> NSURLSession {
         let identifier = NSUUID().UUIDString
         let configuration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(identifier)
-        return NSURLSession(configuration: configuration, delegate: self, delegateQueue: nil)
+        configuration.HTTPMaximumConnectionsPerHost = 5
+        let session = NSURLSession(configuration: configuration, delegate: self, delegateQueue: nil)
+        return session
     }
 }
 

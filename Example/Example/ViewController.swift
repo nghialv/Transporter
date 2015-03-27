@@ -63,13 +63,16 @@ class ViewController: UIViewController {
                 NSLog("transaction1: completed")
             }
             .push(task3)
-            .push([task5, task5])
             .completed {
                 NSLog("transaction2: completed")
             }
-            .push(tasks[2] --> tasks[3] --> tasks[4])
+            .push([task5, task5])
             .completed {
                 NSLog("transaction3: completed")
+            }
+            .push(tasks[2] --> tasks[3] --> tasks[4])
+            .completed {
+                NSLog("transaction4: completed")
             }
             .resume()
     }

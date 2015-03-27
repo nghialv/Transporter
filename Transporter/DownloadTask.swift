@@ -24,6 +24,7 @@ public class DownloadTask : TPTransferTask {
     }
     
     public override func resume() {
+        NSLog("download task did resume")
         task?.resume()
     }
 }
