@@ -44,3 +44,35 @@ func <--> (left: TPTransferTask, right: TPTransferTask) -> TPTaskGroup {
 func <--> (left: TPTaskGroup, right: TPTransferTask) -> TPTaskGroup {
     return left.append(right)
 }
+
+// http boby builder
+func queryStringFromParams(params: [String: AnyObject]) -> String {
+    let paramsArray = convertParamsToArray(params)
+    var queryString = join("&", paramsArray.map{ "\($0)=\($1)" })
+    
+    return queryString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+}
+
+func convertParamsToArray(params: [String: AnyObject]) -> [(String, AnyObject)] {
+    var result = [(String, AnyObject)]()
+    
+    for (key, value) in params {
+        if let arrayValue = value as? NSArray {
+            for nestedValue in arrayValue {
+                let dic = ["\(key)[]": nestedValue]
+                result += convertParamsToArray(dic)
+            }
+        }
+        else if let dicValue = value as? NSDictionary {
+            for (nestedKey, nestedValue) in dicValue {
+                let dic = ["\(key)[\(nestedKey)]": nestedValue]
+                result += convertParamsToArray(dic)
+            }
+        }
+        else {
+            result.append(("\(key)", value))
+        }
+    }
+    
+    return result
+}

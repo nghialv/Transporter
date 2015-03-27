@@ -37,8 +37,6 @@ public class UploadTask : TPTransferTask {
         if let attr: NSDictionary = NSFileManager.defaultManager().attributesOfItemAtPath(file.path!, error: &error) {
             if error == nil {
                 totalBytes = Int64(attr.fileSize())
-            } else {
-                NSLog("Failed to get file size")
             }
         }
     }

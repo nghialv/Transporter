@@ -52,7 +52,11 @@ public class TPTransferTask : TPTask {
         }
         // append http body
         if let params = params {
-            
+            if method == .GET {
+                let query = queryStringFromParams(params)
+                let newUrl = url.stringByAppendingString("?\(query)")
+                request.URL = NSURL(string: newUrl)
+            }
         }
         
         self.request = request
