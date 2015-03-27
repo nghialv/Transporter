@@ -2,10 +2,20 @@
 <img style="-webkit-user-select: none;" src="https://dl.dropboxusercontent.com/u/8556646/transporter.png" width="700" height="218">
 </p>
 
-# Transporter
+[![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat
+)](https://developer.apple.com/iphone/index.action)
+[![Language](http://img.shields.io/badge/language-swift-brightgreen.svg?style=flat
+)](https://developer.apple.com/swift)
+[![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat
+)](http://mit-license.org)
+[![Issues](https://img.shields.io/github/issues/nghialv/Transporter.svg?style=flat
+)](https://github.com/nghialv/Transporter/issues?state=open)
 
-uploading and downloading lib
-------
+
+
+
+Features
+-----
 
 - multiple files (parallel, serial)
 - progress
@@ -15,47 +25,108 @@ uploading and downloading lib
 - background
 - LlamaKit (https://github.com/LlamaKit/LlamaKit)
 
+
+**Quick example**
+
 ``` swift
+let path = NSBundle.mainBundle().pathForResource("bigfile", ofType: "zip")
+let fileUrl = NSURL(fileURLWithPath: path!)!
 
-Transporter.handleEventsForBackgroundURLSection(identifier: String, completionHandler: ( ) -> ( ))
+let task = UploadTask(url: "http://server.com", file: fileUrl)
+	.progress { sent, total in
+		let per = Double(sent) / Double(total)
+		println("uploading: \(per)")
+	}
+	.completed { response, _, error in
+		println("completed")
+	}
 
-let task1 = UploadTask(file: String)
-					.progress { byteswritten, totalbytes in
-					
-					}
-					.completed { result in
-					
-					}
-task1.method = .Post
-task1.retry = true
-task1.timeout = 10
-task1.headers = [String: AnyObject]
-task1.parameters = [String: AnyObject]
+ 
+ Transporter.add(task1 --> task2 --> task3)
+            .progress { bytes, total in
+                let ratio = Double(bytes) / Double(total)
+                println("serial tasks: \(ratio)")
+            }
+            .completed {
+                println("task1, task2, task3: completed")
+            }
+            .add(task4 <--> task5)
+            .progress { bytes, total in
+                println("concurrent tasks")
+            }
+            .resume()
 
-let task2 = UploadTask(data: NSData)
-					.progress()
-					.completed()
+```
 
-let task3 = DownloadTask(url: "")
-					.progress()
-					.completed()
+``` swift
+// downloading task
 
-Transporter.headers = [:]
+let task = DownloadTask(url: downloadUrl, destination: des)
+	.progress { bytes, total in
+		let per = Double(bytes) / Double(total)
+		println("downloading: \(per)")
+	}
+	.completed { response, json, error in
+		println("completed")
+	}
 
-Transporter.push(task1)
-			.validate()
-			.progress()
-			.completed()
-			.resume()
 
-Transporter.push(task1 -> task2 -> task3)
-			.progress()
-			.completed()
-			.resume()
+// uploading task
+// upload types: File, Data, Stream
 
-Transporter.push(task1 <-> task2 <-> task3)
-			.progress()
-			.completed()
-			.resume()
+let task = UploadTask(url: "http://server.com", data: uploadData)
+	.progress { sent, total in
+		let per = Double(sent) / Double(total)
+		println("uploading: \(per)")
+	}
+	.completed { response, _, error in
+		println("completed")
+	}
+
+
+// task
+
+task.headers = ["key": "value"]
+task.params = ["key": "value"]
+task.suspend
+task.cancel
+task.retry
+
+// background handling
+// add the following method in the app delegate
+
+func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
+	Transporter.handleEventsForBackgroundURLSection(identifier, completionHandler: completionHandler)
+    }
+
+
+// Transporter configurations
+
+Transporter.headers = [key: value]
+Transporter.timeoutIntervalForRequest = 30.0
+Transporter.timeoutIntervalForResource = 60.0
+Transporter.HTTPMaximumconnectionsPerHost = 5
 			
 ```
+
+
+Installation
+-----
+* Installation with CocoaPods
+
+```
+	// coming soon
+```
+
+* Copying all the files into your project
+* Using submodule
+
+Requirements
+-----
+- iOS 7.0+
+- Xcode 6.1
+
+License
+-----
+
+Transporter is released under the MIT license. See LICENSE for details.
