@@ -29,7 +29,7 @@ public typealias TransferCompletionHandler = (response: NSHTTPURLResponse?, json
 infix operator --> { associativity left precedence 160 }
 
 func --> (left: TPTransferTask, right: TPTransferTask) -> TPTaskGroup {
-    return TPTaskGroup(left: left, right: right, mode: .Serial)
+    return TPTaskGroup(left: left, right: right, mode: .Serialization)
 }
 
 func --> (left: TPTaskGroup, right: TPTransferTask) -> TPTaskGroup {
@@ -39,7 +39,7 @@ func --> (left: TPTaskGroup, right: TPTransferTask) -> TPTaskGroup {
 infix operator <--> { associativity left precedence 160 }
 
 func <--> (left: TPTransferTask, right: TPTransferTask) -> TPTaskGroup {
-    return TPTaskGroup(left: left, right: right, mode: .Concurrent)
+    return TPTaskGroup(left: left, right: right, mode: .Concurrency)
 }
 
 func <--> (left: TPTaskGroup, right: TPTransferTask) -> TPTaskGroup {

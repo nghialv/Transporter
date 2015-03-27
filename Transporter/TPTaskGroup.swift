@@ -15,8 +15,8 @@ import Foundation
 */
 
 public enum RunMode {
-    case Concurrent
-    case Serial
+    case Concurrency
+    case Serialization
 }
 
 public class TPTaskGroup : TPTask {
@@ -35,13 +35,13 @@ public class TPTaskGroup : TPTask {
     
     public init(task: TPTransferTask) {
         super.init()
-        mode = .Serial
+        mode = .Serialization
         tasks = [task]
     }
    
     public init(tasks: [TPTransferTask]) {
         super.init()
-        mode = .Concurrent
+        mode = .Concurrency
         self.tasks = tasks
     }
     
@@ -59,13 +59,13 @@ public class TPTaskGroup : TPTask {
     override public func resume() {
         if !configured {
             switch mode! {
-            case .Concurrent:
+            case .Concurrency:
                 let session = createSession()
                 sessions = [session]
                 for task in tasks {
                     task.session = session
                 }
-            case .Serial:
+            case .Serialization:
                 for task in tasks {
                     let session = createSession()
                     sessions.append(session)
@@ -84,7 +84,7 @@ public class TPTaskGroup : TPTask {
             totalBytes = tasks.reduce(0) { $0 + $1.totalBytes }
         }
        
-        if mode == .Serial {
+        if mode == .Serialization {
             curTaskIndex = 0
             tasks[curTaskIndex].resume()
         } else {
@@ -132,10 +132,10 @@ extension TPTaskGroup : NSURLSessionTaskDelegate {
         }
         var groupCompleted = false
         switch mode! {
-        case .Concurrent:
+        case .Concurrency:
             groupCompleted = tasks.filter { $0.isRunning }.isEmpty
         
-        case .Serial:
+        case .Serialization:
             curTaskIndex++
             if curTaskIndex < tasks.count {
                 tasks[curTaskIndex].resume()
