@@ -1,5 +1,5 @@
 <p align="center">
-<img style="-webkit-user-select: none;" src="https://dl.dropboxusercontent.com/u/8556646/transporter.png" width="700" height="218">
+<img style="-webkit-user-select: none;" src="https://dl.dropboxusercontent.com/u/8556646/transporter.png" width="720" height="225">
 </p>
 
 [![Platform](http://img.shields.io/badge/platform-ios-blue.svg?style=flat
@@ -44,14 +44,14 @@ let task = UploadTask(url: "http://server.com", file: fileUrl)
  Transporter.add(task1 <--> task2 <--> task3)                     // concurrent tasks
             .progress { bytes, total in
                 let per = Double(bytes) / Double(total)
-                println("serial tasks: \(per)")
+                println("concurrent tasks: \(per)")
             }
             .completed {
                 println("task1, task2, task3: completed")
             }
             .add(task4 --> task5 --> task6)                       // serial tasks 
             .progress { bytes, total in
-                println("concurrent tasks")
+                println("serial tasks")
             }
             .resume()
 
