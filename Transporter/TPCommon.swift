@@ -28,21 +28,21 @@ public typealias TransferCompletionHandler = (response: NSHTTPURLResponse?, json
 
 infix operator --> { associativity left precedence 160 }
 
-func --> (left: TPTransferTask, right: TPTransferTask) -> TPTaskGroup {
+public func --> (left: TPTransferTask, right: TPTransferTask) -> TPTaskGroup {
     return TPTaskGroup(left: left, right: right, mode: .Serialization)
 }
 
-func --> (left: TPTaskGroup, right: TPTransferTask) -> TPTaskGroup {
+public func --> (left: TPTaskGroup, right: TPTransferTask) -> TPTaskGroup {
     return left.append(right)
 }
 
 infix operator <--> { associativity left precedence 160 }
 
-func <--> (left: TPTransferTask, right: TPTransferTask) -> TPTaskGroup {
+public func <--> (left: TPTransferTask, right: TPTransferTask) -> TPTaskGroup {
     return TPTaskGroup(left: left, right: right, mode: .Concurrency)
 }
 
-func <--> (left: TPTaskGroup, right: TPTransferTask) -> TPTaskGroup {
+public func <--> (left: TPTaskGroup, right: TPTransferTask) -> TPTaskGroup {
     return left.append(right)
 }
 

@@ -21,19 +21,19 @@ public class UploadTask : TPTransferTask {
     var data: NSData?
     var stream: NSInputStream?
     
-    override init(url: String, params: [String: AnyObject]? = nil) {
+    public override init(url: String, params: [String: AnyObject]? = nil) {
         super.init(url: url, params: params)
         method = .POST
     }
     
-    convenience init(url: String, data: NSData) {
+    public convenience init(url: String, data: NSData) {
         self.init(url: url)
         uploadDataType = .Data
         self.data = data
         totalBytes = Int64(data.length)
     }
     
-    convenience init(url: String, file: NSURL) {
+    public convenience init(url: String, file: NSURL) {
         self.init(url: url)
         uploadDataType = .File
         self.file = file
@@ -46,7 +46,7 @@ public class UploadTask : TPTransferTask {
         }
     }
     
-    convenience init(url: String, stream: NSInputStream) {
+    public convenience init(url: String, stream: NSInputStream) {
         self.init(url: url)
         uploadDataType = .Stream
         self.stream = stream

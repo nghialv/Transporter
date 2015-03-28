@@ -13,7 +13,7 @@ public class DownloadTask : TPTransferTask {
     var destination: NSURL
     var movingError: NSError?
     
-    init(url: String, destination: NSURL, params: [String: AnyObject]? = nil) {
+    public init(url: String, destination: NSURL, params: [String: AnyObject]? = nil) {
         self.destination = destination
         super.init(url: url, params: params)
         method = .GET

@@ -38,7 +38,7 @@ public class TPTransferTask : TPTask {
         return nil
     }
     
-    init(url: String, params: [String: AnyObject]? = nil) {
+    public init(url: String, params: [String: AnyObject]? = nil) {
         self.url = url
         self.params = params
         super.init()
