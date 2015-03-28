@@ -147,30 +147,35 @@ extension TPTaskGroup : NSURLSessionTaskDelegate {
     // When any task completes
     public func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
         NSLog("[Session] a session task did complete with error : \(error)")
-        if let t = sessionTasks[task] {
-            t.isCompleted = true
-            
-            let httpResponse = task.response as? NSHTTPURLResponse
-            let json: AnyObject? = t.jsonData
-            t.completionHandler?(response: httpResponse, json: json, error: error)
+        
+        var curTask: TPTransferTask! = sessionTasks[task]
+        if curTask == nil {
+            return
         }
-        var groupCompleted = false
+        curTask.error = error
+        curTask.isCompleted = true
+            
+        let httpResponse = task.response as? NSHTTPURLResponse
+        let json: AnyObject? = curTask.jsonData
+        curTask.completionHandler?(response: httpResponse, json: json, error: error)
+        
+        // find the next task to resume
         switch mode! {
         case .Concurrency:
-            groupCompleted = tasks.filter { $0.isRunning }.isEmpty
+            let groupCompleted = tasks.filter { $0.isRunning }.isEmpty
+            if groupCompleted {
+                self.completionHandler?(tasks: tasks)
+                next?.resume()
+            }
         
         case .Serialization:
             curTaskIndex++
-            if curTaskIndex < tasks.count {
+            if curTaskIndex < tasks.count && !curTask.failed {
                 tasks[curTaskIndex].resume()
             } else {
-                groupCompleted = true
+                self.completionHandler?(tasks: tasks)
+                next?.resume()
             }
-        }
-        // run the completion handler of current group and call the next group resume
-        if groupCompleted {
-            self.completionHandler?()
-            next?.resume()
         }
     }
     

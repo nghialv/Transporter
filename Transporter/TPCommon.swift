@@ -23,7 +23,7 @@ public enum TPMethod : String {
 }
 
 public typealias ProgressHandler = (completedBytes: Int64, totalBytes: Int64) -> ()
-public typealias CompletionHandler = () -> ()
+public typealias CompletionHandler = (tasks: [TPTransferTask]) -> ()
 public typealias TransferCompletionHandler = (response: NSHTTPURLResponse?, json: AnyObject?, error: NSError?) -> ()
 
 infix operator --> { associativity left precedence 160 }

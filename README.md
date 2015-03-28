@@ -18,12 +18,11 @@ Features
 -----
 
 - uploading/downloading multiple files concurrently or sequentially
-- background uploads and downloads
+- supports background uploading/downloading
 - supports progress tracking (single task and group of tasks)
-- retry, timeout
-- resume, pause, cancel
+- enable to resume, pause, cancel, retry the task
 - header configurable
-- parameters
+- request parameters configurable
 
 
 **Quick example**
@@ -47,7 +46,7 @@ let task = UploadTask(url: "http://server.com", file: fileUrl)
                 let per = Double(bytes) / Double(total)
                 println("concurrent tasks: \(per)")
             }
-            .completed {
+            .completed { alltasks in
                 println("task1, task2, task3: completed")
             }
             .add(task4 --> task5 --> task6)                       // serial tasks 

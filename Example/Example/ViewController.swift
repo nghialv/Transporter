@@ -111,7 +111,7 @@ class ViewController: UIViewController {
                 let ratio = Double(cur) / Double(total)
                 println("transaction4: \(ratio)")
             }
-            .completed {
+            .completed { tasks in
                 println("transaction4: completed")
             }
             .add(task4 --> task5)

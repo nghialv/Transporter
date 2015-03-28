@@ -37,6 +37,10 @@ public class TPTransferTask : TPTask {
         }
         return nil
     }
+    var error: NSError?
+    var failed: Bool {
+        return error != nil
+    }
     
     public init(url: String, params: [String: AnyObject]? = nil) {
         self.url = url
