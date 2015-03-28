@@ -19,7 +19,7 @@ Features
 
 - uploading/downloading multiple files concurrently or sequentially
 - background uploads and downloads
-- supports progress tracking (single task and group tasks)
+- supports progress tracking (single task and group of tasks)
 - retry, timeout
 - resume, pause, cancel
 - header configurable
