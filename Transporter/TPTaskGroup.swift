@@ -125,6 +125,15 @@ extension TPTaskGroup : NSURLSessionDelegate {
     }
 }
 
+
+extension TPTaskGroup : NSURLSessionDataDelegate {
+    public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
+        if let task = sessionTasks[dataTask] {
+            task.responseData = data
+        }
+    }
+}
+
 extension TPTaskGroup : NSURLSessionTaskDelegate {
     // When any task completes
     public func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
@@ -132,9 +141,9 @@ extension TPTaskGroup : NSURLSessionTaskDelegate {
         if let t = sessionTasks[task] {
             t.isCompleted = true
             
-            // TODO: get json data
             let httpResponse = task.response as? NSHTTPURLResponse
-            t.completionHandler?(response: httpResponse, json: nil, error: error)
+            let json: AnyObject? = t.jsonData
+            t.completionHandler?(response: httpResponse, json: json, error: error)
         }
         var groupCompleted = false
         switch mode! {

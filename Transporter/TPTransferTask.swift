@@ -30,6 +30,13 @@ public class TPTransferTask : TPTask {
     var request: NSMutableURLRequest?
     var totalBytes: Int64 = 0
     var session: NSURLSession?
+    var responseData: NSData?
+    var jsonData: AnyObject? {
+        if let reponseData = responseData {
+            return NSJSONSerialization.JSONObjectWithData(reponseData, options: .AllowFragments, error: nil)
+        }
+        return nil
+    }
     
     init(url: String, params: [String: AnyObject]? = nil) {
         self.url = url

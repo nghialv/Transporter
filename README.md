@@ -37,7 +37,7 @@ let task = UploadTask(url: "http://server.com", file: fileUrl)
 		let per = Double(sent) / Double(total)
 		println("uploading: \(per)")
 	}
-	.completed { response, _, error in
+	.completed { response, json, error in
 		println("completed")
 	}
 
@@ -69,7 +69,7 @@ let task = DownloadTask(url: downloadUrl, destination: des)
 		let per = Double(bytes) / Double(total)
 		println("downloading: \(per)")
 	}
-	.completed { response, json, error in
+	.completed { response, _, error in
 		println("completed")
 	}
 
@@ -82,7 +82,7 @@ let task = UploadTask(url: "http://server.com", data: uploadData)
 		let per = Double(sent) / Double(total)
 		println("uploading: \(per)")
 	}
-	.completed { response, _, error in
+	.completed { response, json, error in
 		println("completed")
 	}
 

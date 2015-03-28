@@ -29,7 +29,7 @@ class ViewController: UIViewController {
                 let per = Double(cur) / Double(total)
                 println("task1: downloading: \(per)")
             }
-            .completed { response, json, error in
+            .completed { response, _, error in
                 println("task1: completed")
             }
         
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
                 let per = Double(cur) / Double(total)
                 println("task2: downloading: \(per)")
             }
-            .completed { response, json, error in
+            .completed { response, _, error in
                 println("task2: completed")
             }
        
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
                 let per = Double(cur) / Double(total)
                 println("task3: downloading: \(per)")
             }
-            .completed { response, json, error in
+            .completed { response, _, error in
                 println("task3: completed")
             }
         
@@ -59,8 +59,9 @@ class ViewController: UIViewController {
                 let per = Double(cur) / Double(total)
                 println("task4: uploading: \(per)")
             }
-            .completed { response, _, error in
+            .completed { response, json, error in
                 println("task4: completed")
+                //println("task4: \(json)")
             }
         
         let path2 = NSBundle.mainBundle().pathForResource("zip_file2", ofType: "zip")
@@ -70,8 +71,9 @@ class ViewController: UIViewController {
                 let per = Double(cur) / Double(total)
                 println("task5: uploading: \(per)")
             }
-            .completed { response, _, error in
+            .completed { response, json, error in
                 println("task5: completed")
+                //println("task5: \(json)")
             }
         
         let tasks = (6...8).map { i -> UploadTask in
@@ -80,7 +82,7 @@ class ViewController: UIViewController {
                     let per = Double(cur) / Double(total)
                     println("task\(i): uploading: \(per)")
                 }
-                .completed { response, _, error in
+                .completed { response, json, error in
                     println("task\(i): completed")
                 }
             return task
