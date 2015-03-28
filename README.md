@@ -17,12 +17,13 @@
 Features
 -----
 
-- multiple files (parallel, serial)
+- uploading/downloading multiple files concurrently or sequentially
 - background uploads and downloads
-- progress tracking
-- retry
-- timeout
-- header settings
+- supports progress tracking (single task and group tasks)
+- retry, timeout
+- resume, pause, cancel
+- header configurable
+- parameters
 
 
 **Quick example**
@@ -99,7 +100,7 @@ task.retry
 
 func application(application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: () -> Void) {
 	Transporter.handleEventsForBackgroundURLSection(identifier, completionHandler: completionHandler)
-    }
+}
 
 
 // Transporter configurations
