@@ -106,7 +106,7 @@ func application(application: UIApplication, handleEventsForBackgroundURLSession
 
 Transporter.headers = [key: value]
 Transporter.timeoutIntervalForRequest = 30.0
-Transporter.timeoutIntervalForResource = 60.0
+Transporter.timeoutIntervalForResource = 24 * 60 * 60.0
 Transporter.HTTPMaximumconnectionsPerHost = 5
 			
 ```
