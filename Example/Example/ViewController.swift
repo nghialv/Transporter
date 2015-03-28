@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     @IBAction func didPressedStartButton(sender: AnyObject) {
         let downloadUrl1 = "https://developer.apple.com/library/ios/documentation/iphone/conceptual/iphoneosprogrammingguide/iphoneappprogrammingguide.pdf"
         let downloadUrl2 = "https://developer.apple.com/library/ios/documentation/iphone/conceptual/iphoneosprogrammingguide/iphoneappprogrammingguide.pdf"
-        let downloadUrl3 = "https://s3.amazonaws.com/hayageek/downloads/SimpleBackgroundFetch.zip"
+        let downloadUrl3 = "https://developer.apple.com/library/prerelease/ios/releasenotes/DeveloperTools/RN-Xcode/Xcode_Release_Notes.pdf"
         let uploadUrl = "http://httpbin.org/post"
         let documentsPath: AnyObject = NSSearchPathForDirectoriesInDomains(.DocumentDirectory,.UserDomainMask,true)[0]
         let des =  NSURL(string: documentsPath.stringByAppendingString("/file.pdf"))!

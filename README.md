@@ -18,12 +18,11 @@ Features
 -----
 
 - multiple files (parallel, serial)
-- progress
+- background uploads and downloads
+- progress tracking
 - retry
 - timeout
 - header settings
-- background
-- LlamaKit (https://github.com/LlamaKit/LlamaKit)
 
 
 **Quick example**
@@ -42,21 +41,24 @@ let task = UploadTask(url: "http://server.com", file: fileUrl)
 	}
 
  
- Transporter.add(task1 --> task2 --> task3)
+ Transporter.add(task1 <--> task2 <--> task3)                     // concurrent tasks
             .progress { bytes, total in
-                let ratio = Double(bytes) / Double(total)
-                println("serial tasks: \(ratio)")
+                let per = Double(bytes) / Double(total)
+                println("serial tasks: \(per)")
             }
             .completed {
                 println("task1, task2, task3: completed")
             }
-            .add(task4 <--> task5)
+            .add(task4 --> task5 --> task6)                       // serial tasks 
             .progress { bytes, total in
                 println("concurrent tasks")
             }
             .resume()
 
 ```
+
+Usage
+-----
 
 ``` swift
 // downloading task
@@ -88,8 +90,8 @@ let task = UploadTask(url: "http://server.com", data: uploadData)
 
 task.headers = ["key": "value"]
 task.params = ["key": "value"]
-task.suspend
-task.cancel
+task.pause()
+task.cancel()
 task.retry
 
 // background handling

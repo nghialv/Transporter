@@ -16,7 +16,7 @@ import Foundation
 
 public struct Transporter {
     public static var headers: [String: String]?
-    public static var timeoutIntervalForRequest = 30.0
+    public static var timeoutIntervalForRequest = 60.0
     public static var timeoutIntervalForResource = 60.0
     public static var HTTPMaximumconnectionsPerHost: Int = 5
     

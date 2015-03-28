@@ -112,10 +112,16 @@ public class TPTaskGroup : TPTask {
     }
 }
 
+
 extension TPTaskGroup : NSURLSessionDelegate {
     // All tasks enqueued have been delivered
     public func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
-        Transporter.sessionDidFinishEventsForBackgroundURLSession(session)
+        // check if all tasks have been completed
+        session.getTasksWithCompletionHandler { dataTasks, uploadTasks, downloadTasks in
+            if dataTasks.isEmpty && uploadTasks.isEmpty && downloadTasks.isEmpty {
+                Transporter.sessionDidFinishEventsForBackgroundURLSession(session)
+            }
+        }
     }
 }
 
@@ -174,6 +180,7 @@ extension TPTaskGroup : NSURLSessionTaskDelegate {
         }
     }
 }
+
 
 extension TPTaskGroup : NSURLSessionDownloadDelegate {
     //  The download task has resumed downloading
