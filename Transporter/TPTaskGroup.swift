@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 // TODO
 /*
@@ -101,7 +102,15 @@ public class TPTaskGroup : TPTask {
     
     private func createSession() -> NSURLSession {
         let identifier = NSUUID().UUIDString
-        let configuration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(identifier)
+       
+        var configuration: NSURLSessionConfiguration!
+        
+        if UIDevice.systemVersionGreaterThanOrEqualTo("8.0") {
+            configuration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(identifier)
+        } else {
+            configuration = NSURLSessionConfiguration.backgroundSessionConfiguration(identifier)
+        }
+        
         configuration.HTTPMaximumConnectionsPerHost = Transporter.HTTPMaximumconnectionsPerHost
         configuration.timeoutIntervalForRequest = Transporter.timeoutIntervalForRequest
         configuration.timeoutIntervalForResource = Transporter.timeoutIntervalForResource
