@@ -17,7 +17,7 @@
 Features
 -----
 
-- uploading/downloading multiple files concurrently or sequentially
+- uploading/downloading multiple files concurrently or sequentially (just by using `|||` and `-->` operator)
 - supports background uploading/downloading
 - supports progress tracking (single task and group of tasks)
 - enable to resume, pause, cancel, retry the task
@@ -41,7 +41,7 @@ let task = UploadTask(url: "http://server.com", file: fileUrl)
 	}
 
  
- Transporter.add(task1 <--> task2 <--> task3)                     // concurrent tasks
+ Transporter.add(task1 ||| task2 ||| task3)                     // concurrent tasks
             .progress { bytes, total in
                 let per = Double(bytes) / Double(total)
                 println("concurrent tasks: \(per)")
@@ -49,7 +49,7 @@ let task = UploadTask(url: "http://server.com", file: fileUrl)
             .completed { alltasks in
                 println("task1, task2, task3: completed")
             }
-            .add(task4 --> task5 --> task6)                       // serial tasks 
+            .add(task4 --> task5 --> task6)                       // sequential tasks 
             .progress { bytes, total in
                 println("serial tasks")
             }
@@ -84,6 +84,15 @@ let task = UploadTask(url: "http://server.com", data: uploadData)
 	.completed { response, json, error in
 		println("completed")
 	}
+
+
+// using  `|||`  operator to create a group of concurrent tasks
+
+Transporter.add(task1 ||| task2 ||| task3)
+
+// using  `-->`  operator to create a group of sequential tasks
+
+Transporter.add(task1 --> task2 --> task3)
 
 
 // task

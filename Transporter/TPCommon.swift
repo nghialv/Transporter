@@ -36,13 +36,13 @@ public func --> (left: TPTaskGroup, right: TPTransferTask) -> TPTaskGroup {
     return left.append(right)
 }
 
-infix operator <--> { associativity left precedence 160 }
+infix operator ||| { associativity left precedence 160 }
 
-public func <--> (left: TPTransferTask, right: TPTransferTask) -> TPTaskGroup {
+public func ||| (left: TPTransferTask, right: TPTransferTask) -> TPTaskGroup {
     return TPTaskGroup(left: left, right: right, mode: .Concurrency)
 }
 
-public func <--> (left: TPTaskGroup, right: TPTransferTask) -> TPTaskGroup {
+public func ||| (left: TPTaskGroup, right: TPTransferTask) -> TPTaskGroup {
     return left.append(right)
 }
 

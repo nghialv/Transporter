@@ -106,7 +106,7 @@ class ViewController: UIViewController {
             .resume()
         */
         
-        Transporter.add(task1 <--> task2 <--> task3)
+        Transporter.add(task1 ||| task2 ||| task3)
             .progress { cur, total in
                 let ratio = Double(cur) / Double(total)
                 println("transaction4: \(ratio)")
