@@ -17,7 +17,8 @@
 Features
 -----
 
-- uploading/downloading multiple files concurrently or sequentially (just by using `|||` and `-->` operator)
+- uploading/downloading multiple files concurrently or sequentially
+	- grouping tasks with awesome custom operators (`|||` and `-->`)
 - supports background uploading/downloading
 - supports progress tracking (single task and group of tasks)
 - enable to resume, pause, cancel, retry the task
