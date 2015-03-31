@@ -133,6 +133,11 @@ Installation
 * Copying all the files into your project
 * Using submodule
 
+Todo
+-----
+- [ ] retry, pause, cancel
+- [ ] validation
+
 Requirements
 -----
 - iOS 7.0+
