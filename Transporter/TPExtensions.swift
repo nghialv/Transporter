@@ -9,27 +9,27 @@
 import UIKit
 
 extension UIDevice {
-    private class var osVersion: NSString {
+    private class var osVersion: String {
         return UIDevice.currentDevice().systemVersion
     }
     
-    class func systemVersionEqualTo(version: NSString) -> Bool {
+    class func systemVersionEqualTo(version: String) -> Bool {
         return osVersion.compare(version, options: NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedSame
     }
     
-    class func systemVersionGreaterThan(version: NSString) -> Bool {
+    class func systemVersionGreaterThan(version: String) -> Bool {
         return osVersion.compare(version, options: NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedDescending
     }
     
-    class func systemVersionGreaterThanOrEqualTo(version: NSString) -> Bool {
+    class func systemVersionGreaterThanOrEqualTo(version: String) -> Bool {
         return osVersion.compare(version, options: NSStringCompareOptions.NumericSearch) != NSComparisonResult.OrderedAscending
     }
     
-    class func systemVersionLessThan(version: NSString) -> Bool {
+    class func systemVersionLessThan(version: String) -> Bool {
         return osVersion.compare(version, options: NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
     }
     
-    class func systemVersionLessThanOrEqualTo(version: NSString) -> Bool {
+    class func systemVersionLessThanOrEqualTo(version: String) -> Bool {
         return osVersion.compare(version, options: NSStringCompareOptions.NumericSearch) != NSComparisonResult.OrderedDescending
     }
 }
