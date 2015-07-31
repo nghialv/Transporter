@@ -18,7 +18,7 @@ public class DownloadTask : TPTransferTask {
         super.init(url: url, params: params)
         method = .GET
     }
-   
+    
     override func setup() {
         super.setup()
         if let request = request {
@@ -26,8 +26,21 @@ public class DownloadTask : TPTransferTask {
         }
     }
     
+    public override func cancel() {
+        
+        if TPTask.loggingEnabled {
+            NSLog("[DownloadTask] did cancel")
+        }
+        
+        task?.cancel()
+    }
+    
     public override func resume() {
-        NSLog("[DownloadTask] did resume")
+        
+        if TPTask.loggingEnabled {
+            NSLog("[DownloadTask] did resume")
+        }
+        
         task?.resume()
     }
 }
