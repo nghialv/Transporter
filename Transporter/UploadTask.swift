@@ -70,7 +70,11 @@ public class UploadTask : TPTransferTask {
     }
     
     public override func resume() {
-        NSLog("[UploadTask] did resume")
+        
+        if TPTask.loggingEnabled {
+            NSLog("[UploadTask] did resume")
+        }
+        
         task?.resume()
     }
 }

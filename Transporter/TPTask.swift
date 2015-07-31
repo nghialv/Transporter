@@ -18,6 +18,7 @@ import Foundation
 public class TPTask : NSObject {
     public var retryCount: UInt = 1
     public var progressHandler: ProgressHandler?
+    public static var loggingEnabled = false
     internal(set) public var isCompleted: Bool = false
     public var isRunning : Bool {
         return !isCompleted
