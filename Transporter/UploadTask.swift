@@ -39,10 +39,13 @@ public class UploadTask : TPTransferTask {
         self.file = file
         
         var error: NSError?
-        if let attr: NSDictionary = NSFileManager.defaultManager().attributesOfItemAtPath(file.path!, error: &error) {
+        do {
+            let attr: NSDictionary = try NSFileManager.defaultManager().attributesOfItemAtPath(file.path!)
             if error == nil {
                 totalBytes = Int64(attr.fileSize())
             }
+        } catch let error1 as NSError {
+            error = error1
         }
     }
     
@@ -61,7 +64,7 @@ public class UploadTask : TPTransferTask {
                     task = session?.uploadTaskWithRequest(request, fromFile: file)
                 }
             case .Data:
-                task = session?.uploadTaskWithRequest(request, fromData: data)
+                task = session?.uploadTaskWithRequest(request, fromData: data!)
             case .Stream:
                 task = session?.uploadTaskWithStreamedRequest(request)
                 break

@@ -33,7 +33,7 @@ public class TPTransferTask : TPTask {
     var responseData: NSData?
     var jsonData: AnyObject? {
         if let reponseData = responseData {
-            return NSJSONSerialization.JSONObjectWithData(reponseData, options: .AllowFragments, error: nil)
+            return try? NSJSONSerialization.JSONObjectWithData(reponseData, options: .AllowFragments)
         }
         return nil
     }

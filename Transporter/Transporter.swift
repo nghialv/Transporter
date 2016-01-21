@@ -46,10 +46,11 @@ public extension Transporter {
 
 internal extension Transporter {
     static func sessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
-        let identifier = session.configuration.identifier
-        if let handler = backgroundEventHandlers[identifier] {
-            handler()
-            backgroundEventHandlers.removeValueForKey(identifier)
+        if let identifier = session.configuration.identifier {
+            if let handler = backgroundEventHandlers[identifier] {
+                handler()
+                backgroundEventHandlers.removeValueForKey(identifier)
+            }
         }
     }
 }

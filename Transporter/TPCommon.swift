@@ -49,7 +49,7 @@ public func ||| (left: TPTaskGroup, right: TPTransferTask) -> TPTaskGroup {
 // http boby builder
 func queryStringFromParams(params: [String: AnyObject]) -> String {
     let paramsArray = convertParamsToArray(params)
-    var queryString = join("&", paramsArray.map{ "\($0)=\($1)" })
+    let queryString = paramsArray.map{ "\($0)=\($1)" }.joinWithSeparator("&")
     
     return queryString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
 }

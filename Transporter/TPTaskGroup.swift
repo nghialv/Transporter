@@ -148,7 +148,7 @@ extension TPTaskGroup : NSURLSessionTaskDelegate {
     public func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
         NSLog("[Session] a session task did complete with error : \(error)")
         
-        var curTask: TPTransferTask! = sessionTasks[task]
+        let curTask: TPTransferTask! = sessionTasks[task]
         if curTask == nil {
             return
         }
@@ -195,7 +195,7 @@ extension TPTaskGroup : NSURLSessionTaskDelegate {
         }
     }
     
-    public func URLSession(session: NSURLSession, task: NSURLSessionTask, needNewBodyStream completionHandler: (NSInputStream!) -> Void) {
+    public func URLSession(session: NSURLSession, task: NSURLSessionTask, needNewBodyStream completionHandler: (NSInputStream?) -> Void) {
         if let uploadTask = task as? NSURLSessionUploadTask {
             if let task = sessionTasks[uploadTask] as? UploadTask {
                 completionHandler(task.stream!)
@@ -222,7 +222,11 @@ extension TPTaskGroup : NSURLSessionDownloadDelegate {
     public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
         NSLog("[Session] Download finished : \(location)")
         if let task = sessionTasks[downloadTask] as? DownloadTask {
-            NSFileManager.defaultManager().moveItemAtURL(location, toURL: task.destination, error: &task.movingError)
+            do {
+                try NSFileManager.defaultManager().moveItemAtURL(location, toURL: task.destination)
+            } catch let error as NSError {
+                task.movingError = error
+            }
         }
     }
 }
