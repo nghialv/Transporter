@@ -27,52 +27,52 @@ class ViewController: UIViewController {
         let task1 = DownloadTask(url: downloadUrl1, destination: des)
             .progress { cur, total in
                 let per = Double(cur) / Double(total)
-                println("task1: downloading: \(per)")
+                print("task1: downloading: \(per)")
             }
             .completed { response, _, error in
-                println("task1: completed")
+                print("task1: completed")
             }
         
         let task2 = DownloadTask(url: downloadUrl2, destination: des)
             .progress { cur, total in
                 let per = Double(cur) / Double(total)
-                println("task2: downloading: \(per)")
+                print("task2: downloading: \(per)")
             }
             .completed { response, _, error in
-                println("task2: completed")
+                print("task2: completed")
             }
        
         let task3 = DownloadTask(url: downloadUrl3, destination: des)
             .progress { cur, total in
                 let per = Double(cur) / Double(total)
-                println("task3: downloading: \(per)")
+                print("task3: downloading: \(per)")
             }
             .completed { response, _, error in
-                println("task3: completed")
+                print("task3: completed")
             }
         
         // Uploading tasks
         let path = NSBundle.mainBundle().pathForResource("zip_file", ofType: "zip")
-        let fileUrl = NSURL(fileURLWithPath: path!)!
+        let fileUrl = NSURL(fileURLWithPath: path!)
         let task4 = UploadTask(url: uploadUrl, file: fileUrl)
             .progress { cur, total in
                 let per = Double(cur) / Double(total)
-                println("task4: uploading: \(per)")
+                print("task4: uploading: \(per)")
             }
             .completed { response, json, error in
-                println("task4: completed")
+                print("task4: completed")
                 //println("task4: \(json)")
             }
         
         let path2 = NSBundle.mainBundle().pathForResource("zip_file2", ofType: "zip")
-        let fileUrl2 = NSURL(fileURLWithPath: path!)!
+        let fileUrl2 = NSURL(fileURLWithPath: path!)
         let task5 = UploadTask(url: uploadUrl, file: fileUrl2)
             .progress { cur, total in
                 let per = Double(cur) / Double(total)
-                println("task5: uploading: \(per)")
+                print("task5: uploading: \(per)")
             }
             .completed { response, json, error in
-                println("task5: completed")
+                print("task5: completed")
                 //println("task5: \(json)")
             }
         
@@ -80,10 +80,10 @@ class ViewController: UIViewController {
             let task = UploadTask(url: uploadUrl, file: fileUrl)
                 .progress { cur, total in
                     let per = Double(cur) / Double(total)
-                    println("task\(i): uploading: \(per)")
+                    print("task\(i): uploading: \(per)")
                 }
                 .completed { response, json, error in
-                    println("task\(i): completed")
+                    print("task\(i): completed")
                 }
             return task
         }
@@ -109,10 +109,10 @@ class ViewController: UIViewController {
         Transporter.add(task1 ||| task2 ||| task3)
             .progress { cur, total in
                 let ratio = Double(cur) / Double(total)
-                println("transaction4: \(ratio)")
+                print("transaction4: \(ratio)")
             }
             .completed { tasks in
-                println("transaction4: completed")
+                print("transaction4: completed")
             }
             .add(task4 --> task5)
             .resume()
