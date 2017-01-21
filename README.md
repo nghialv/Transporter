@@ -139,6 +139,8 @@ pod install
 * Copying all the files into your project
 * Using submodule
 
+PR
+
 Todo
 -----
 - [ ] retry, pause, cancel
